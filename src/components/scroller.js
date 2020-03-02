@@ -5,7 +5,10 @@ export default class Scroller {
     const id = element.getAttribute('href');
     const document = element.ownerDocument.scrollingElement || element.ownerDocument.documentElement;
     const scrollNode = document.querySelector(id);
-    const top = scrollNode.getBoundingClientRect().top;
+    //Accomodate image instead of text
+    if (scrollNode != null) {
+      var top = scrollNode.getBoundingClientRect().top;
+    }
     const scrollTop = window.pageYOffset || document.scrollTop;
     const fixedHeight = 72;
     const scrollTo = top + scrollTop - fixedHeight;
