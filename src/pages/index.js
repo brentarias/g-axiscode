@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
+//import Img from "gatsby-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -180,25 +180,25 @@ export default class IndexPage extends React.Component {
               </div>
               <div className="col-lg-2 col-md-6 text-center">
                 <div className="mt-5">
-                  <i className="fab fa-4x fa-font-awesome text-primary mb-4"></i>
+                  <i className="fas fa-4x fa-landmark text-primary mb-4"></i>
                   <h3 className="h4 mb-2">Silicon Valley Bank</h3>
                 </div>
               </div>              
               <div className="col-lg-2 col-md-6 text-center">
                 <div className="mt-5">
-                  <i className="fab fa-4x fa-font-awesome text-primary mb-4"></i>
+                  <i className="fas fa-4x fa-gas-pump text-primary mb-4"></i>
                   <h3 className="h4 mb-2">Circle K</h3>
                 </div>
               </div>
               <div className="col-lg-2 col-md-6 text-center">
                 <div className="mt-5">
-                  <i className="fab fa-4x fa-font-awesome text-primary mb-4"></i>
+                  <i className="fas fa-4x fa-stethoscope text-primary mb-4"></i>
                   <h3 className="h4 mb-2">Christian Care Ministry</h3>
                 </div>
               </div>
               <div className="col-lg-2 col-md-6 text-center">
                 <div className="mt-5">
-                  <i className="fab fa-4x fa-font-awesome text-primary mb-4"></i>
+                  <i className="fas fa-4x fa-gamepad text-primary mb-4"></i>
                   <h3 className="h4 mb-2">GameStop</h3>
                 </div>
               </div>              

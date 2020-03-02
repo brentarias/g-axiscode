@@ -1,9 +1,11 @@
 module.exports = {
-  pathPrefix: `/gatsby-creative`,
+  pathPrefix: `/consulting`,
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `AxisCode`,
+    description: `Consulting for cloud architecture, migration, apps, DB's, and scaling.`,
+    author: `@mystagogue`,
+    url: `https://axiscode.com`,
+    image: `/images/axiscode_meta.png`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -19,13 +21,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `axiscode-consulting`,
+        short_name: `axiscode`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#3423A6`,
+        theme_color: `#69995D`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/axiscode_favicon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-sass`,
