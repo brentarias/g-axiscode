@@ -45,7 +45,7 @@ export default class IndexPage extends React.Component {
                 </h2>
                 <hr className="divider light my-4" />
                 <p className="text-white-50 mb-4">
-                  Need project-saving triage in an IT deparment? Need
+                  Need project-saving triage in an IT department? Need
                   organizational and digital transformation to build a
                   competitive edge? In industries ranging from financial, health
                   care and retail, Brent Arias has the battle-hardened
@@ -55,10 +55,10 @@ export default class IndexPage extends React.Component {
                 </p>
                 <a
                   className="btn btn-light btn-xl js-scroll-trigger"
-                  href="#services"
+                  href="#contact"
                   onClick={Scroller.handleAnchorScroll}
                 >
-                  Get Started!
+                  Contact Brent!
                 </a>
               </div>
             </div>
@@ -201,7 +201,7 @@ export default class IndexPage extends React.Component {
                   <i className="fas fa-4x fa-gamepad text-primary mb-4"></i>
                   <h3 className="h4 mb-2">GameStop</h3>
                 </div>
-              </div>              
+              </div>
             </div>
           </div>
         </section>
