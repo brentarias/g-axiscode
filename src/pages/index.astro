@@ -1,4 +1,5 @@
 ---
+const currentYear = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
@@ -7,25 +8,108 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="generator" content="Astro" />
-		<meta name="description" content="Consulting for cloud architecture, migration, apps, DB's, and scaling." />
+		<meta name="description" content="Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias." />
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:creator" content="@mystagogue" />
-		<meta name="twitter:title" content="Home" />
-		<meta name="twitter:description" content="Consulting for cloud architecture, migration, apps, DB's, and scaling." />
+		<meta name="twitter:title" content="AxisCode — Agentic engineering for serious software" />
+		<meta name="twitter:description" content="Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias." />
 		<meta name="theme-color" content="#69995D" />
 		<link rel="icon" type="image/png" href="/icons/icon-48x48.png?v=cd2c318ba986b466980f6c2b1c659f37" />
-		<title>Home | AxisCode</title>
+		<title>AxisCode — Agentic-accelerated cloud architecture & engineering</title>
+
+		<!-- Set theme before body paints so there is no flash -->
+		<script is:inline>
+			(function () {
+				try {
+					var saved = localStorage.getItem('axiscode-theme');
+					var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+					var theme = saved || (prefersDark ? 'dark' : 'light');
+					document.documentElement.setAttribute('data-theme', theme);
+				} catch (e) {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			})();
+		</script>
+
+		<!-- Typography: Geist (display) + JetBrains Mono (accents) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
+
 		<style>
+			/* =========================================================
+			   Theme tokens
+			   ========================================================= */
 			:root {
-				--color-primary: #69995D;
-				--color-primary-dark: #557a49;
-				--color-text: #333;
-				--color-text-light: #666;
-				--color-bg: #fff;
-				--color-bg-alt: #f5f5f5;
-				--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+				/* Fonts */
+				--font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+				--font-display: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+				--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+				/* Brand */
+				--color-brand: #69995D;
+				--color-brand-strong: #557a49;
+				--color-brand-tint: rgba(105, 153, 93, 0.10);
+
+				/* Surfaces */
+				--color-bg: #ffffff;
+				--color-bg-elevated: #ffffff;
+				--color-bg-subtle: #f5f5f5;
+				--color-border: #e0e0e0;
+
+				/* Text */
+				--color-text: #333333;
+				--color-text-muted: #666666;
+
+				/* Inverted / deep panel (Clients, Footer) */
+				--color-panel-deep: #333333;
+				--color-on-panel-deep: #ffffff;
+
+				/* About accent panel */
+				--color-about-bg: #69995D;
+				--color-about-fg: #ffffff;
+
+				/* Hero overlay */
+				--hero-overlay: rgba(52, 35, 166, 0.6);
+
+				/* Card shadow (mode-aware) */
+				--card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+				color-scheme: light;
 			}
 
+			:root[data-theme='dark'] {
+				--color-brand: #7fb572;
+				--color-brand-strong: #9cc790;
+				--color-brand-tint: rgba(127, 181, 114, 0.12);
+
+				--color-bg: #0f1115;
+				--color-bg-elevated: #1a1d24;
+				--color-bg-subtle: #14161c;
+				--color-border: #2a2d34;
+
+				--color-text: #e5e7eb;
+				--color-text-muted: #9ca3af;
+
+				--color-panel-deep: #0a0c10;
+				--color-on-panel-deep: #e5e7eb;
+
+				--color-about-bg: #5e8e52;
+				--color-about-fg: #ffffff;
+
+				--hero-overlay: rgba(52, 35, 166, 0.75);
+
+				--card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+				color-scheme: dark;
+			}
+
+			/* =========================================================
+			   Base
+			   ========================================================= */
 			* {
 				margin: 0;
 				padding: 0;
@@ -37,12 +121,20 @@
 			}
 
 			body {
-				font-family: var(--font-family);
+				font-family: var(--font-sans);
 				color: var(--color-text);
+				background: var(--color-bg);
 				line-height: 1.6;
+				transition: background-color 0.3s ease, color 0.3s ease;
 			}
 
-			/* Navigation */
+			h1, h2, h3 {
+				font-family: var(--font-display);
+			}
+
+			/* =========================================================
+			   Navigation
+			   ========================================================= */
 			nav {
 				position: fixed;
 				top: 0;
@@ -56,7 +148,7 @@
 
 			nav.scrolled {
 				background: var(--color-bg);
-				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 			}
 
 			.nav-container {
@@ -65,6 +157,7 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
+				gap: 1.5rem;
 			}
 
 			nav.scrolled .nav-logo,
@@ -73,36 +166,113 @@
 			}
 
 			.nav-logo {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.6rem;
 				font-size: 1.5rem;
-				font-weight: bold;
+				font-weight: 700;
+				font-family: var(--font-display);
 				color: white;
 				text-decoration: none;
 				transition: color 0.3s;
+				line-height: 1;
+			}
+
+			.nav-tagline {
+				font-family: var(--font-mono);
+				font-size: 0.75rem;
+				font-weight: 400;
+				letter-spacing: 0.02em;
+				opacity: 0.75;
+				color: inherit;
+				/* Nudge up slightly so the tagline's optical center
+				   sits on the logo's cap-height, not its baseline. */
+				transform: translateY(-1px);
+			}
+
+			@media (max-width: 768px) {
+				.nav-tagline {
+					display: none;
+				}
 			}
 
 			.nav-links {
 				display: flex;
 				list-style: none;
 				gap: 2rem;
+				margin-left: auto;
 			}
 
 			.nav-links a {
 				color: white;
 				text-decoration: none;
 				transition: color 0.3s;
+				font-family: var(--font-display);
+				font-weight: 500;
 			}
 
 			.nav-links a:hover {
 				color: #ccc;
 			}
 
-			/* Hero Section */
+			/* Theme toggle */
+			.theme-toggle {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 36px;
+				height: 36px;
+				padding: 0;
+				background: transparent;
+				border: 1px solid rgba(255, 255, 255, 0.25);
+				border-radius: 8px;
+				color: white;
+				cursor: pointer;
+				transition: background 0.2s, border-color 0.2s, color 0.3s;
+			}
+
+			.theme-toggle:hover {
+				background: rgba(255, 255, 255, 0.1);
+				border-color: rgba(255, 255, 255, 0.5);
+			}
+
+			.theme-toggle svg {
+				width: 18px;
+				height: 18px;
+			}
+
+			nav.scrolled .theme-toggle {
+				color: var(--color-text);
+				border-color: var(--color-border);
+			}
+
+			nav.scrolled .theme-toggle:hover {
+				background: var(--color-bg-subtle);
+			}
+
+			.theme-icon-sun {
+				display: none;
+			}
+
+			:root[data-theme='dark'] .theme-icon-sun {
+				display: inline-block;
+			}
+
+			:root[data-theme='dark'] .theme-icon-moon {
+				display: none;
+			}
+
+			/* =========================================================
+			   Hero
+			   ========================================================= */
 			.hero {
 				min-height: 100vh;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				background: linear-gradient(rgba(52, 35, 166, 0.6), rgba(52, 35, 166, 0.6)), url('/images/bg-masthead_network.jpg');
+				background:
+					linear-gradient(var(--hero-overlay), var(--hero-overlay)),
+					url('/images/bg-masthead_network.jpg');
 				background-size: cover;
 				background-position: center;
 				color: white;
@@ -113,6 +283,7 @@
 			.hero-content h1 {
 				font-size: 3rem;
 				font-weight: 700;
+				letter-spacing: -0.015em;
 				margin-bottom: 1rem;
 			}
 
@@ -125,27 +296,30 @@
 
 			.hero-content p {
 				font-size: 1.25rem;
-				max-width: 600px;
+				max-width: 640px;
 				margin: 0 auto 2rem;
 			}
 
 			.hero-cta {
 				display: inline-block;
 				background: white;
-				color: var(--color-primary);
+				color: var(--color-brand);
 				padding: 0.75rem 2rem;
 				text-decoration: none;
 				font-weight: 600;
+				font-family: var(--font-display);
 				border-radius: 4px;
 				transition: transform 0.2s, box-shadow 0.2s;
 			}
 
 			.hero-cta:hover {
 				transform: translateY(-2px);
-				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 			}
 
-			/* Sections */
+			/* =========================================================
+			   Sections & shared
+			   ========================================================= */
 			section {
 				padding: 5rem 2rem;
 			}
@@ -161,9 +335,22 @@
 				margin: 0 auto;
 			}
 
+			.section-eyebrow {
+				display: block;
+				text-align: center;
+				font-family: var(--font-mono);
+				font-size: 0.75rem;
+				font-weight: 500;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--color-brand);
+				margin-bottom: 0.75rem;
+			}
+
 			.section-title {
 				font-size: 2rem;
 				font-weight: 700;
+				letter-spacing: -0.01em;
 				text-align: center;
 				margin-bottom: 1rem;
 			}
@@ -171,17 +358,94 @@
 			.section-divider {
 				width: 60px;
 				border: none;
-				border-top: 3px solid var(--color-primary);
+				border-top: 3px solid var(--color-brand);
 				margin: 0 auto 3rem;
 			}
 
-			/* About Section */
+			/* =========================================================
+			   Section gradient transitions
+			   ========================================================= */
 			#about {
-				background: var(--color-primary);
-				color: white;
+				position: relative;
+			}
+
+			#about::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4rem;
+				background: linear-gradient(to bottom, rgba(52, 35, 166, 0.35), transparent);
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			:root[data-theme='dark'] #about::before {
+				background: linear-gradient(to bottom, rgba(52, 35, 166, 0.5), transparent);
+			}
+
+			#services::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4rem;
+				background: linear-gradient(to bottom, var(--color-about-bg), var(--color-bg));
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			#clients::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4rem;
+				background: linear-gradient(to bottom, var(--color-bg), var(--color-panel-deep));
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			#contact::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4rem;
+				background: linear-gradient(to bottom, var(--color-panel-deep), var(--color-bg));
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			/* =========================================================
+			   About
+			   ========================================================= */
+			#about {
+				background: var(--color-about-bg);
+				color: var(--color-about-fg);
+				transition: background-color 0.3s ease;
+			}
+
+			/* Subtle noise texture overlay */
+			#about::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				opacity: 0.035;
+				pointer-events: none;
+				z-index: 0;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+				background-repeat: repeat;
+				background-size: 256px 256px;
 			}
 
 			.about-layout {
+				position: relative;
+				z-index: 2;
 				display: flex;
 				align-items: center;
 				gap: 3rem;
@@ -195,7 +459,7 @@
 				height: 200px;
 				border-radius: 50%;
 				object-fit: cover;
-				object-position: center 10%;				
+				object-position: center 10%;
 				border: 4px solid white;
 			}
 
@@ -204,18 +468,14 @@
 				text-align: center;
 			}
 
-			.about-text .section-title,
-			.about-text hr {
-				margin-left: auto;
-				margin-right: auto;
+			#about .section-eyebrow {
+				color: rgba(255, 255, 255, 0.85);
 			}
 
-			.about-text p {
-				text-align: center;
-				max-width: 600px;
+			#about .section-title,
+			#about .section-divider {
 				margin-left: auto;
 				margin-right: auto;
-				margin-bottom: 2.5rem;
 			}
 
 			#about .section-title {
@@ -226,33 +486,33 @@
 				border-color: white;
 			}
 
-			.about-content {
-				width: 100%;
+			.about-text p {
+				text-align: left;
+				max-width: 600px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-bottom: 1.25rem;
 			}
 
-			.about-content p {
-				font-size: 1.1rem;
-				margin-bottom: 2rem;
+			.about-text p:last-of-type {
+				margin-bottom: 2.5rem;
 			}
 
 			.about-cta {
 				display: inline-block;
 				background: white;
-				color: var(--color-primary);
+				color: var(--color-brand);
 				padding: 0.75rem 2rem;
 				text-decoration: none;
 				font-weight: 600;
+				font-family: var(--font-display);
 				border-radius: 4px;
 				transition: transform 0.2s, box-shadow 0.2s;
 			}
 
 			.about-cta:hover {
 				transform: translateY(-2px);
-				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-			}
-
-			#about .service-icon {
-				color: white;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 			}
 
 			@media (max-width: 768px) {
@@ -260,9 +520,20 @@
 					flex-direction: column;
 					text-align: center;
 				}
+
+				.about-text p {
+					text-align: center;
+				}
 			}
 
-			/* Services Section */
+			/* =========================================================
+			   Services
+			   ========================================================= */
+			#services {
+				position: relative;
+				background: var(--color-bg);
+			}
+
 			.services-grid {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -270,93 +541,151 @@
 			}
 
 			.service-card {
-				background: var(--color-bg);
-				border: 1px solid #e0e0e0;
-				border-radius: 8px;
+				position: relative;
+				overflow: hidden;
+				background: var(--color-bg-elevated);
+				border: 1px solid var(--color-border);
+				border-radius: 10px;
 				padding: 2rem;
 				text-align: center;
-				transition: box-shadow 0.2s, transform 0.2s;
+				transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s, background-color 0.3s;
+			}
+
+			.service-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: var(--color-brand);
+				transform: scaleX(0);
+				transform-origin: left center;
+				transition: transform 0.3s ease;
 			}
 
 			.service-card:hover {
-				box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+				box-shadow: var(--card-shadow-hover);
 				transform: translateY(-4px);
+				border-color: var(--color-border);
+			}
+
+			.service-card:hover::before {
+				transform: scaleX(1);
+			}
+
+			.service-icon-plate {
+				width: 56px;
+				height: 56px;
+				margin: 0 auto 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: var(--color-brand-tint);
+				border-radius: 12px;
+				transition: background 0.3s ease;
 			}
 
 			.service-icon {
-				width: 48px;
-				height: 48px;
-				color: var(--color-primary);
-				margin-bottom: 1rem;
+				width: 28px;
+				height: 28px;
+				color: var(--color-brand);
 			}
 
 			.service-card h3 {
-				font-size: 1.25rem;
+				font-size: 1.15rem;
+				font-weight: 600;
 				margin-bottom: 0.75rem;
+				color: var(--color-text);
 			}
 
 			.service-card p {
-				color: var(--color-text-light);
+				color: var(--color-text-muted);
 				font-size: 0.95rem;
 			}
 
-			/* Clients Section */
+			/* =========================================================
+			   Clients
+			   ========================================================= */
 			#clients {
-				background: var(--color-text);
-				color: white;
+				position: relative;
+				background: var(--color-panel-deep);
+				color: var(--color-on-panel-deep);
+				transition: background-color 0.3s ease;
 			}
 
 			#clients .section-title {
-				color: white;
+				color: var(--color-on-panel-deep);
 			}
 
 			#clients .section-divider {
-				border-color: white;
+				border-color: var(--color-on-panel-deep);
+			}
+
+			#clients .section-eyebrow {
+				color: var(--color-brand);
+			}
+
+			.clients-intro {
+				text-align: center;
+				max-width: 640px;
+				margin: -1.5rem auto 3rem;
+				font-size: 1.1rem;
+				opacity: 0.9;
 			}
 
 			.clients-grid {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-				gap: 2rem;
+				gap: 1.5rem;
 				text-align: center;
 			}
 
 			.client-card {
-				background: rgba(255, 255, 255, 0.1);
-				border: 1px solid rgba(255, 255, 255, 0.2);
-				border-radius: 8px;
+				background: rgba(255, 255, 255, 0.06);
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				border-radius: 10px;
 				padding: 2rem 1rem;
-				transition: background 0.2s, box-shadow 0.2s;
+				transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
 			}
 
 			.client-card:hover {
-				background: rgba(255, 255, 255, 0.2);
-				box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+				background: rgba(255, 255, 255, 0.12);
+				border-color: rgba(255, 255, 255, 0.3);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 			}
 
 			.client-icon {
 				width: 40px;
 				height: 40px;
-				color: white;
+				color: var(--color-on-panel-deep);
 				margin-bottom: 1rem;
 			}
 
 			.client-card h3 {
-				font-size: 1.1rem;
+				font-size: 1.05rem;
 				font-weight: 600;
-				color: white;
+				color: var(--color-on-panel-deep);
 			}
 
-			/* Contact Section */
+			/* =========================================================
+			   Contact
+			   ========================================================= */
+			#contact {
+				position: relative;
+				background: var(--color-bg);
+			}
+
 			.contact-content {
 				text-align: center;
-				max-width: 600px;
+				max-width: 640px;
 				margin: 0 auto;
 			}
 
 			.contact-content p {
 				font-size: 1.1rem;
 				margin-bottom: 2rem;
+				color: var(--color-text);
 			}
 
 			.contact-info {
@@ -370,16 +699,17 @@
 				display: flex;
 				align-items: center;
 				gap: 0.75rem;
+				color: var(--color-text);
 			}
 
 			.contact-icon {
-				width: 24px;
-				height: 24px;
-				color: var(--color-primary);
+				width: 22px;
+				height: 22px;
+				color: var(--color-brand);
 			}
 
 			.contact-item a {
-				color: var(--color-primary);
+				color: var(--color-brand);
 				text-decoration: none;
 			}
 
@@ -387,23 +717,32 @@
 				text-decoration: underline;
 			}
 
-			/* Footer */
+			/* =========================================================
+			   Footer
+			   ========================================================= */
 			footer {
-				background: var(--color-text);
-				color: white;
+				background: var(--color-panel-deep);
+				color: var(--color-on-panel-deep);
 				text-align: center;
 				padding: 2rem;
+				font-size: 0.9rem;
+				transition: background-color 0.3s ease;
 			}
 
-			/* Responsive */
+			/* =========================================================
+			   Responsive tweaks
+			   ========================================================= */
 			@media (max-width: 768px) {
 				.nav-container {
-					flex-direction: column;
-					gap: 1rem;
+					flex-wrap: wrap;
+					gap: 0.75rem;
 				}
 
 				.nav-links {
 					gap: 1.5rem;
+					order: 3;
+					width: 100%;
+					justify-content: center;
 				}
 
 				.hero-content h1 {
@@ -423,18 +762,109 @@
 					gap: 1.5rem;
 				}
 			}
+
+			/* =========================================================
+			   Scroll-triggered fade-in (service cards)
+			   ========================================================= */
+			.service-card {
+				opacity: 0;
+				transform: translateY(8px);
+			}
+
+			.service-card.is-visible {
+				opacity: 1;
+				transform: translateY(0);
+				transition: opacity 0.5s ease, transform 0.5s ease;
+			}
+
+			/* Stagger: each card delays slightly after the previous */
+			.service-card.is-visible:nth-child(2) { transition-delay: 0.06s; }
+			.service-card.is-visible:nth-child(3) { transition-delay: 0.12s; }
+			.service-card.is-visible:nth-child(4) { transition-delay: 0.18s; }
+			.service-card.is-visible:nth-child(5) { transition-delay: 0.24s; }
+			.service-card.is-visible:nth-child(6) { transition-delay: 0.30s; }
+			.service-card.is-visible:nth-child(7) { transition-delay: 0.36s; }
+			.service-card.is-visible:nth-child(8) { transition-delay: 0.42s; }
+
+			/* =========================================================
+			   Reduced motion
+			   ========================================================= */
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*::before,
+				*::after {
+					animation-duration: 0.001ms !important;
+					animation-iteration-count: 1 !important;
+					transition-duration: 0.001ms !important;
+				}
+
+				html {
+					scroll-behavior: auto;
+				}
+
+				/* Ensure cards are visible immediately when motion is reduced */
+				.service-card {
+					opacity: 1 !important;
+					transform: none !important;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<nav>
 			<div class="nav-container">
-				<a href="#page-top" class="nav-logo">AxisCode</a>
+				<a href="#page-top" class="nav-logo">
+					AxisCode<span class="nav-tagline">· agentic engineering</span>
+				</a>
 				<ul class="nav-links">
 					<li><a href="#about">About</a></li>
 					<li><a href="#services">Services</a></li>
 					<li><a href="#clients">Clients</a></li>
 					<li><a href="#contact">Contact</a></li>
 				</ul>
+				<button
+					class="theme-toggle"
+					type="button"
+					aria-label="Toggle color theme"
+					title="Toggle color theme"
+				>
+					<svg
+						class="theme-icon theme-icon-moon"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+						focusable="false"
+					>
+						<path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+					</svg>
+					<svg
+						class="theme-icon theme-icon-sun"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+						focusable="false"
+					>
+						<circle cx="12" cy="12" r="4" />
+						<path d="M12 2v2" />
+						<path d="M12 20v2" />
+						<path d="m4.93 4.93 1.41 1.41" />
+						<path d="m17.66 17.66 1.41 1.41" />
+						<path d="M2 12h2" />
+						<path d="M20 12h2" />
+						<path d="m6.34 17.66-1.41 1.41" />
+						<path d="m19.07 4.93-1.41 1.41" />
+					</svg>
+				</button>
 			</div>
 		</nav>
 
@@ -442,10 +872,14 @@
 
 		<header class="hero">
 			<div class="hero-content">
-				<h1>Cloud migration and app modernization</h1>
+				<h1>Enterprise-grade software, delivered at agentic speed.</h1>
 				<hr />
-				<p>Architecture, strategy and implementation consulting that removes your tough technical barriers.</p>
-				<a href="#about" class="hero-cta">Find Out More</a>
+				<p>
+					Chief-architect consulting that fuses 25+ years of hands-on
+					engineering with modern agentic coding — cloud, data, and platform
+					work shipped in a fraction of the usual time.
+				</p>
+				<a href="#about" class="hero-cta">See How</a>
 			</div>
 		</header>
 
@@ -453,11 +887,31 @@
 			<section id="about">
 				<div class="container">
 					<div class="about-layout">
-						<img src="/images/brent_portrait.jpeg" alt="Brent Arias" class="about-portrait" />
+						<img
+							src="/images/brent_portrait.jpeg"
+							alt="Brent Arias"
+							class="about-portrait"
+						/>
 						<div class="about-text">
+							<span class="section-eyebrow">// 01 · about</span>
 							<h2 class="section-title">From C-Suite to "boiler room".</h2>
 							<hr class="section-divider" />
-							<p>Need project-saving triage in an IT department? Need organizational and digital transformation to build a competitive edge? In industries ranging from financial, health care and retail, Brent Arias has the battle-hardened experience to "turn the ship". As a hands-on Chief Architect consultant, he maps out the technology and process while engaging with key stakeholders and technical leads throughout implementation.</p>
+							<p>
+								Need project-saving triage in an IT department? Digital
+								transformation that actually moves a P&amp;L? Across financial
+								services, healthcare, and retail, Brent Arias has the
+								battle-hardened experience to turn the ship — and now the
+								agentic toolchain to do it faster than the market expects.
+							</p>
+							<p>
+								As a hands-on Chief Architect, Brent maps the technology and
+								the process, engages directly with stakeholders and technical
+								leads, and writes and reviews code alongside his agents. Specs
+								are treated as source of truth, tests as guardrails, and AI as
+								a force multiplier — not a substitute for judgment. The
+								deliverable is software a senior engineer would be proud to
+								own, produced at a pace that used to be impossible.
+							</p>
 							<a href="#contact" class="about-cta">Contact Brent!</a>
 						</div>
 					</div>
@@ -466,64 +920,235 @@
 
 			<section id="services">
 				<div class="container">
+					<span class="section-eyebrow">// 02 · services</span>
 					<h2 class="section-title">Services</h2>
 					<hr class="section-divider" />
 					<div class="services-grid">
+						<!-- Agentic Delivery — Lucide: terminal -->
 						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z" />
-							</svg>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M12 19h8" />
+									<path d="m4 17 6-6-6-6" />
+								</svg>
+							</div>
+							<h3>Agentic Delivery</h3>
+							<p>
+								Spec-driven development with Claude Code, OpenSpec, MCP-based
+								tooling, and Playwright-verified changes. Large refactors,
+								greenfield services, and platform work delivered at multiples
+								of hand-coded pace — reviewed and owned by a senior engineer.
+							</p>
+						</div>
+
+						<!-- Cloud Migration — Lucide: cloud-upload -->
+						<div class="service-card">
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M12 13v8" />
+									<path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+									<path d="m8 17 4-4 4 4" />
+								</svg>
+							</div>
 							<h3>Cloud Migration</h3>
-							<p>Data center analysis and sizing, cost projections, tech selection (e.g. serverless, SaaS, PaaS) and implementation. BC/DR design and IaC.</p>
+							<p>
+								Data-center analysis and sizing, cost projections, platform
+								selection (serverless, SaaS, PaaS, Kubernetes) and
+								implementation. BC/DR design, landing zones, and Infrastructure
+								as Code — scaffolded and hardened with agentic workflows.
+							</p>
 						</div>
+
+						<!-- Scaling & Performance — Lucide: gauge -->
 						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-							</svg>
-							<h3>Scaling and Perf</h3>
-							<p>Elastic computation design, performance testing, maintainable and expandable coding practices.</p>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="m12 14 4-4" />
+									<path d="M3.34 19a10 10 0 1 1 17.32 0" />
+								</svg>
+							</div>
+							<h3>Scaling &amp; Performance</h3>
+							<p>
+								Elastic computation design, load and performance testing, and
+								maintainable coding practices that hold up under growth.
+								Bottlenecks profiled, fixes specified, and regressions fenced
+								off with automated checks.
+							</p>
 						</div>
+
+						<!-- App Modernization — Lucide: layers -->
 						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-3.507c.596 0 1.18.075 1.75.224.29.073.479.318.479.61v0Z" />
-							</svg>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
+									<path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />
+									<path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" />
+								</svg>
+							</div>
 							<h3>App Modernization</h3>
-							<p>Code refactoring for containerization or PaaS. DB migration to cloud native storage. Microservice design and implementation.</p>
+							<p>
+								Refactoring monoliths for containers, PaaS, or microservices.
+								Database migration to cloud-native storage. Legacy codebases
+								brought forward with agent-assisted refactors that are
+								reviewable, test-covered, and safe to deploy.
+							</p>
 						</div>
+
+						<!-- Data Engineering — Lucide: database -->
 						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-							</svg>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<ellipse cx="12" cy="5" rx="9" ry="3" />
+									<path d="M3 5V19A9 3 0 0 0 21 19V5" />
+									<path d="M3 12A9 3 0 0 0 21 12" />
+								</svg>
+							</div>
 							<h3>Data Engineering</h3>
-							<p>EAI, ODS and data lake design and build-out. Telemetry and mass-scale, event-driven processing.</p>
+							<p>
+								EAI, ODS, and data-lake design and build-out. Telemetry and
+								high-volume, event-driven processing. Pipelines specified,
+								generated, and hardened with agentic tooling — so data
+								platforms ship in weeks, not quarters.
+							</p>
 						</div>
+
+						<!-- Security & Compliance — Lucide: shield-check -->
 						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
-							</svg>
-							<h3>Security & Compliance</h3>
-							<p>Security-by-design and privacy-by-design. IAM design and configuration. SIEM/SOAR instrumentation. Encryption in transit and at rest.</p>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+									<path d="m9 12 2 2 4-4" />
+								</svg>
+							</div>
+							<h3>Security &amp; Compliance</h3>
+							<p>
+								Security-by-design and privacy-by-design. IAM design and
+								configuration. SIEM/SOAR instrumentation. Encryption in transit
+								and at rest. Controls expressed as code and kept in sync with
+								a living spec.
+							</p>
 						</div>
+
+						<!-- Digital Transformation — Lucide: compass -->
 						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.5 19.5 16 20.25l-.5-.75a3.375 3.375 0 0 0-2.455-2.456L12 18l.75-.5a3.375 3.375 0 0 0 2.456-2.456L16 14.25l.5.75a3.375 3.375 0 0 0 2.456 2.456L19.5 18l-.75-.5a3.375 3.375 0 0 0-2.456-2.456Z" />
-							</svg>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<circle cx="12" cy="12" r="10" />
+									<path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" />
+								</svg>
+							</div>
 							<h3>Digital Transformation</h3>
-							<p>Operations and business strategy re-invention. Organizational alignment and education. Technology selection and roll-out.</p>
+							<p>
+								Operations and business-strategy reinvention. Organizational
+								alignment and education. Technology selection and roll-out —
+								with a clear path from strategy to shipped software, not a
+								deck that dies on a shelf.
+							</p>
 						</div>
+
+						<!-- CI/CD & Automation — Lucide: git-branch -->
 						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3 3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
-							</svg>
-							<h3>CI/CD & Automation</h3>
-							<p>Performance and test automation. Infrastructure as Code (IaC). Pipeline as code. Ephemeral test environments.</p>
-						</div>
-						<div class="service-card">
-							<svg class="service-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21v-6.5a.75.75 0 0 1 .75-.75h0a.75.75 0 0 1 .75.75v6.5m0-9h4.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25h4.5m5.25 0v-3a.75.75 0 0 0-.75-.75h0a.75.75 0 0 0-.75.75v3m0 0h3m-9 0h.008v.008H12v-.008Z" />
-							</svg>
-							<h3>Internationalization</h3>
-							<p>Textual, temporal and numismatic guidance, tool selection and implementation.</p>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M15 6a9 9 0 0 0-9 9V3" />
+									<circle cx="18" cy="6" r="3" />
+									<circle cx="6" cy="18" r="3" />
+								</svg>
+							</div>
+							<h3>CI/CD &amp; Automation</h3>
+							<p>
+								Performance and test automation. Infrastructure as Code (IaC).
+								Pipeline as code. Ephemeral test environments. Pipelines that
+								agents can read, extend, and debug alongside your team.
+							</p>
 						</div>
 					</div>
 				</div>
@@ -531,43 +1156,126 @@
 
 			<section id="clients">
 				<div class="container">
+					<span class="section-eyebrow">// 03 · clients</span>
 					<h2 class="section-title">AxisCode Clients</h2>
 					<hr class="section-divider" />
+					<p class="clients-intro">
+						<strong>Trusted by enterprises that can't afford to get architecture wrong.</strong>
+					</p>
 					<div class="clients-grid">
+						<!-- Amex — Simple Icons brand mark -->
 						<div class="client-card">
-							<svg class="client-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path d="M16.015 14.378c0-.32-.135-.496-.344-.622-.21-.12-.464-.135-.81-.135h-1.543v2.82h.675v-1.027h.72c.24 0 .39.024.478.125.12.13.104.38.104.55v.35h.66v-.555c-.002-.25-.017-.376-.108-.516-.06-.08-.18-.18-.33-.234l.02-.008c.18-.072.48-.297.48-.747zm-.87.407l-.028-.002c-.09.053-.195.058-.33.058h-.81v-.63h.824c.12 0 .24 0 .33.05.098.048.156.147.15.255 0 .12-.045.215-.134.27zM20.297 15.837H19v.6h1.304c.676 0 1.05-.278 1.05-.884 0-.28-.066-.448-.187-.582-.153-.133-.392-.193-.73-.207l-.376-.015c-.104 0-.18 0-.255-.03-.09-.03-.15-.105-.15-.21 0-.09.017-.166.09-.21.083-.046.177-.066.272-.06h1.23v-.602h-1.35c-.704 0-.958.437-.958.84 0 .9.776.855 1.407.87.104 0 .18.015.225.06.046.03.082.106.082.18 0 .077-.035.15-.08.18-.06.053-.15.07-.277.07zM0 0v10.096L.81 8.22h1.75l.225.464V8.22h2.043l.45 1.02.437-1.013h6.502c.295 0 .56.057.756.236v-.23h1.787v.23c.307-.17.686-.23 1.12-.23h2.606l.24.466v-.466h1.918l.254.465v-.466h1.858v3.948H20.87l-.36-.6v.585h-2.353l-.256-.63h-.583l-.27.614h-1.213c-.48 0-.84-.104-1.08-.24v.24h-2.89v-.884c0-.12-.03-.12-.105-.135h-.105v1.036H6.067v-.48l-.21.48H4.69l-.202-.48v.465H2.235l-.256-.624H1.4l-.256.624H0V24h23.786v-7.108c-.27.135-.613.18-.973.18H21.09v-.255c-.21.165-.57.255-.914.255H14.71v-.9c0-.12-.018-.12-.12-.12h-.075v1.022h-1.8v-1.066c-.298.136-.643.15-.928.136h-.214v.915h-2.18l-.54-.617-.57.6H4.742v-3.93h3.61l.518.602.554-.6h2.412c.28 0 .74.03.942.225v-.24h2.177c.202 0 .644.045.903.225v-.24h3.265v.24c.163-.164.508-.24.803-.24h1.89v.24c.194-.15.464-.24.84-.24h1.176V0H0zM21.156 14.955c.004.005.006.012.01.016.01.01.024.01.032.02l-.042-.035zM23.828 13.082h.065v.555h-.065zM23.865 15.03v-.005c-.03-.025-.046-.048-.075-.07-.15-.153-.39-.215-.764-.225l-.36-.012c-.12 0-.194-.007-.27-.03-.09-.03-.15-.105-.15-.21 0-.09.03-.16.09-.204.076-.045.15-.05.27-.05h1.223v-.588h-1.283c-.69 0-.96.437-.96.84 0 .9.78.855 1.41.87.104 0 .18.015.224.06.046.03.076.106.076.18 0 .07-.034.138-.09.18-.045.056-.136.07-.27.07h-1.288v.605h1.287c.42 0 .734-.118.9-.36h.03c.09-.134.135-.3.135-.523 0-.24-.045-.39-.135-.526zM18.597 14.208v-.583h-2.235V16.458h2.235v-.585h-1.57v-.57h1.533v-.584h-1.532v-.51M13.51 8.787h.685V11.6h-.684zM13.126 9.543l-.007.006c0-.314-.13-.5-.34-.624-.217-.125-.47-.135-.81-.135H10.43v2.82h.674v-1.034h.72c.24 0 .39.03.487.12.122.136.107.378.107.548v.354h.677v-.553c0-.25-.016-.375-.11-.516-.09-.107-.202-.19-.33-.237.172-.07.472-.3.472-.75zm-.855.396h-.015c-.09.054-.195.056-.33.056H11.1v-.623h.825c.12 0 .24.004.33.05.09.04.15.128.15.25s-.047.22-.134.266zM15.92 9.373h.632v-.6h-.644c-.464 0-.804.105-1.02.33-.286.3-.362.69-.362 1.11 0 .512.123.833.36 1.074.232.238.645.31.97.31h.78l.255-.627h1.39l.262.627h1.36v-2.11l1.272 2.11h.95l.002.002V8.786h-.684v1.963l-1.18-1.96h-1.02V11.4L18.11 8.744h-1.004l-.943 2.22h-.3c-.177 0-.362-.03-.468-.134-.125-.15-.186-.36-.186-.662 0-.285.08-.51.194-.63.133-.135.272-.165.516-.165zm1.668-.108l.464 1.118v.002h-.93l.466-1.12zM2.38 10.97l.254.628H4V9.393l.972 2.205h.584l.973-2.202.015 2.202h.69v-2.81H6.118l-.807 1.904-.876-1.905H3.343v2.663L2.205 8.787h-.997L.01 11.597h.72l.26-.626h1.39zm-.688-1.705l.46 1.118-.003.002h-.915l.457-1.12zM11.856 13.62H9.714l-.85.923-.825-.922H5.346v2.82H8l.855-.932.824.93h1.302v-.94h.838c.6 0 1.17-.164 1.17-.945l-.006-.003c0-.78-.598-.93-1.128-.93zM7.67 15.853l-.014-.002H6.02v-.557h1.47v-.574H6.02v-.51H7.7l.733.82-.764.824zm2.642.33l-1.03-1.147 1.03-1.108v2.253zm1.553-1.258h-.885v-.717h.885c.24 0 .42.098.42.344 0 .243-.15.372-.42.372zM9.967 9.373v-.586H7.73V11.6h2.237v-.58H8.4v-.564h1.527V9.88H8.4v-.507" />
 							</svg>
 							<h3>Amex</h3>
 						</div>
+
+						<!-- Microsoft — Simple Icons brand mark -->
 						<div class="client-card">
-							<svg class="client-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path d="M0 0v11.408h11.408V0zm12.594 0v11.408H24V0zM0 12.594V24h11.408V12.594zm12.594 0V24H24V12.594z" />
 							</svg>
 							<h3>Microsoft</h3>
 						</div>
+
+						<!-- Silicon Valley Bank — Lucide fallback: landmark -->
 						<div class="client-card">
-							<svg class="client-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path d="M10 18v-7" />
+								<path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z" />
+								<path d="M14 18v-7" />
+								<path d="M18 18v-7" />
+								<path d="M3 22h18" />
+								<path d="M6 18v-7" />
 							</svg>
 							<h3>Silicon Valley Bank</h3>
 						</div>
+
+						<!-- Circle K — Lucide fallback: store (brand not in Simple Icons) -->
 						<div class="client-card">
-							<svg class="client-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-								<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" />
+								<path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244" />
+								<path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" />
 							</svg>
 							<h3>Circle K</h3>
 						</div>
+
+						<!-- Christian Care Ministry — Lucide fallback: heart -->
 						<div class="client-card">
-							<svg class="client-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
 							</svg>
 							<h3>Christian Care Ministry</h3>
 						</div>
+
+						<!-- GameStop — Lucide fallback: gamepad-2 (brand not in Simple Icons) -->
 						<div class="client-card">
-							<svg class="client-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-3.507c.596 0 1.18.075 1.75.224.29.073.479.318.479.61v0Z" />
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<line x1="6" x2="10" y1="11" y2="11" />
+								<line x1="8" x2="8" y1="9" y2="13" />
+								<line x1="15" x2="15.01" y1="12" y2="12" />
+								<line x1="18" x2="18.01" y1="10" y2="10" />
+								<path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z" />
 							</svg>
 							<h3>GameStop</h3>
 						</div>
@@ -578,19 +1286,46 @@
 			<section id="contact">
 				<div class="container">
 					<div class="contact-content">
-						<h2 class="section-title">Let's Get In Touch!</h2>
+						<span class="section-eyebrow">// 04 · contact</span>
+						<h2 class="section-title">Let's talk.</h2>
 						<hr class="section-divider" />
-						<p>Ready to start your next project with AxisCode? You can reach Brent Arias by phone or e-mail.</p>
+						<p>
+							Ready to start your next project with AxisCode? You can reach
+							Brent Arias by phone or e-mail.
+						</p>
 						<div class="contact-info">
 							<div class="contact-item">
-								<svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+								<svg
+									class="contact-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
 								</svg>
 								<span>+1 (602) 692-8088</span>
 							</div>
 							<div class="contact-item">
-								<svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+								<svg
+									class="contact-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+									<rect x="2" y="4" width="20" height="16" rx="2" />
 								</svg>
 								<a href="mailto:barias@axiscode.com">barias@axiscode.com</a>
 							</div>
@@ -601,17 +1336,54 @@
 		</main>
 
 		<footer>
-			<p>Copyright &copy; 2026 - AxisCode</p>
+			<p>Copyright &copy; {currentYear} - AxisCode</p>
 		</footer>
+
 		<script>
 			const nav = document.querySelector('nav');
+			const toggle = document.querySelector('.theme-toggle');
+			const root = document.documentElement;
+
 			window.addEventListener('scroll', () => {
 				if (window.scrollY > 50) {
-					nav.classList.add('scrolled');
+					nav?.classList.add('scrolled');
 				} else {
-					nav.classList.remove('scrolled');
+					nav?.classList.remove('scrolled');
 				}
 			});
+
+			toggle?.addEventListener('click', () => {
+				const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+				const next = current === 'dark' ? 'light' : 'dark';
+				root.setAttribute('data-theme', next);
+				try {
+					localStorage.setItem('axiscode-theme', next);
+				} catch (e) {
+					/* localStorage unavailable — ignore */
+				}
+			});
+
+			/* Scroll-triggered fade-in for service cards */
+			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				const cards = document.querySelectorAll('.service-card');
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('is-visible');
+								observer.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.15 }
+				);
+				cards.forEach((card) => observer.observe(card));
+			} else {
+				/* Reduced motion: make cards visible immediately */
+				document.querySelectorAll('.service-card').forEach((card) => {
+					card.classList.add('is-visible');
+				});
+			}
 		</script>
 	</body>
 </html>
