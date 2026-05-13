@@ -92,6 +92,13 @@ const currentYear = new Date().getFullYear();
 				/* Card shadow (mode-aware) */
 				--card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
 
+				/* Editorial accents */
+				--portrait-block: var(--color-brand);
+				--terminal-bg: #0e1116;
+				--terminal-chrome-bg: #1a1d24;
+				--terminal-fg: rgba(255, 255, 255, 0.92);
+				--terminal-muted: rgba(255, 255, 255, 0.55);
+
 				color-scheme: light;
 			}
 
@@ -118,6 +125,10 @@ const currentYear = new Date().getFullYear();
 				--clients-overlay: rgba(28, 18, 90, 0.9);
 
 				--card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+				--portrait-block: var(--color-brand);
+				--terminal-bg: #06090d;
+				--terminal-chrome-bg: #11141a;
 
 				color-scheme: dark;
 			}
@@ -315,28 +326,29 @@ const currentYear = new Date().getFullYear();
 				background-size: cover;
 				background-position: center;
 				color: white;
-				text-align: center;
+				text-align: left;
 				padding: 6rem 2rem 4rem;
 			}
 
-			.hero-content h1 {
-				font-size: 3rem;
-				font-weight: 700;
-				letter-spacing: -0.015em;
-				margin-bottom: 1rem;
+			.hero-content {
+				max-width: 880px;
+				width: 100%;
 			}
 
-			.hero-content hr {
-				width: 60px;
-				border: none;
-				border-top: 3px solid white;
-				margin: 1.5rem auto;
+			.hero-content h1 {
+				font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+				font-weight: 700;
+				line-height: 1.08;
+				letter-spacing: -0.02em;
+				margin-bottom: 1.5rem;
+				text-wrap: balance;
 			}
 
 			.hero-content p {
-				font-size: 1.25rem;
-				max-width: 640px;
-				margin: 0 auto 2rem;
+				font-size: 1.2rem;
+				max-width: 58ch;
+				margin: 0 0 2rem;
+				color: rgba(255, 255, 255, 0.88);
 			}
 
 			.hero-cta {
@@ -361,10 +373,10 @@ const currentYear = new Date().getFullYear();
 				list-style: none;
 				display: flex;
 				flex-wrap: wrap;
-				justify-content: center;
+				justify-content: flex-start;
 				align-items: center;
 				gap: 0.5rem 1.5rem;
-				margin: 2.5rem auto 0;
+				margin: 2.5rem 0 0;
 				padding: 0;
 				font-family: var(--font-mono);
 				font-size: 0.7rem;
@@ -419,29 +431,29 @@ const currentYear = new Date().getFullYear();
 
 			.section-eyebrow {
 				display: block;
-				text-align: center;
+				text-align: left;
 				font-family: var(--font-mono);
-				font-size: 0.75rem;
+				font-size: 0.8rem;
 				font-weight: 500;
 				text-transform: uppercase;
-				letter-spacing: 0.08em;
+				letter-spacing: 0.1em;
 				color: var(--color-brand);
-				margin-bottom: 0.75rem;
+				margin-bottom: 0.6rem;
 			}
 
 			.section-title {
-				font-size: 2rem;
+				font-size: clamp(1.85rem, 3.5vw, 2.65rem);
 				font-weight: 700;
-				letter-spacing: -0.01em;
-				text-align: center;
-				margin-bottom: 1rem;
+				line-height: 1.1;
+				letter-spacing: -0.018em;
+				text-align: left;
+				margin-bottom: 2.5rem;
 			}
 
+			/* Editorial: drop the centered green hr — whitespace + scale carry the
+			   hierarchy instead. Markup is left so #about etc. theming works. */
 			.section-divider {
-				width: 60px;
-				border: none;
-				border-top: 3px solid var(--color-brand);
-				margin: 0 auto 3rem;
+				display: none;
 			}
 
 			/* =========================================================
@@ -528,52 +540,63 @@ const currentYear = new Date().getFullYear();
 			.about-layout {
 				position: relative;
 				z-index: 2;
-				display: flex;
-				align-items: center;
-				gap: 3rem;
-				max-width: 900px;
+				display: grid;
+				grid-template-columns: minmax(280px, 360px) 1fr;
+				align-items: start;
+				gap: 4.5rem;
+				max-width: 1080px;
 				margin: 0 auto;
 			}
 
+			.about-portrait-wrap {
+				position: relative;
+				width: 100%;
+				padding-top: 2.5rem;
+			}
+
+			.about-portrait-wrap::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 1.75rem;
+				width: 100%;
+				height: 100%;
+				background: var(--color-brand-strong);
+				z-index: 0;
+				transition: background 0.3s ease;
+			}
+
 			.about-portrait {
-				flex-shrink: 0;
-				width: 200px;
-				height: 200px;
-				border-radius: 50%;
+				position: relative;
+				z-index: 1;
+				width: 100%;
+				height: auto;
+				aspect-ratio: 4 / 5;
+				border-radius: 0;
 				object-fit: cover;
-				object-position: center 10%;
-				border: 4px solid white;
+				object-position: center 12%;
+				border: none;
+				filter: grayscale(0.7) contrast(1.05);
+				display: block;
 			}
 
 			.about-text {
-				flex: 1;
-				text-align: center;
+				text-align: left;
 			}
 
 			#about .section-eyebrow {
 				color: rgba(255, 255, 255, 0.85);
 			}
 
-			#about .section-title,
-			#about .section-divider {
-				margin-left: auto;
-				margin-right: auto;
-			}
-
 			#about .section-title {
 				color: white;
-			}
-
-			#about .section-divider {
-				border-color: white;
+				margin-bottom: 2rem;
 			}
 
 			.about-text p {
 				text-align: left;
-				max-width: 600px;
-				margin-left: auto;
-				margin-right: auto;
-				margin-bottom: 1.25rem;
+				max-width: 60ch;
+				margin: 0 0 1.25rem;
 			}
 
 			.about-text p:last-of-type {
@@ -599,12 +622,17 @@ const currentYear = new Date().getFullYear();
 
 			@media (max-width: 768px) {
 				.about-layout {
-					flex-direction: column;
-					text-align: center;
+					grid-template-columns: 1fr;
+					gap: 2.5rem;
 				}
 
-				.about-text p {
-					text-align: center;
+				.about-portrait-wrap {
+					max-width: 320px;
+					padding-top: 1.5rem;
+				}
+
+				.about-portrait-wrap::before {
+					left: 1rem;
 				}
 			}
 
@@ -629,8 +657,19 @@ const currentYear = new Date().getFullYear();
 				border: 1px solid var(--color-border);
 				border-radius: 10px;
 				padding: 2rem;
-				text-align: center;
+				text-align: left;
 				transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s, background-color 0.3s;
+			}
+
+			.service-number {
+				display: block;
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				font-weight: 500;
+				letter-spacing: 0.12em;
+				color: var(--color-brand);
+				opacity: 0.75;
+				margin-bottom: 0.85rem;
 			}
 
 			.service-card::before {
@@ -656,32 +695,172 @@ const currentYear = new Date().getFullYear();
 				transform: scaleX(1);
 			}
 
-			/* Flagship badge: small mono pill on the featured service card */
+			/* Flagship badge: small mono pill — used on the showcase card */
 			.service-flagship-badge {
-				position: absolute;
-				top: 0.85rem;
-				right: 0.85rem;
+				display: inline-block;
 				font-family: var(--font-mono);
-				font-size: 0.6rem;
+				font-size: 0.65rem;
 				font-weight: 500;
 				text-transform: uppercase;
-				letter-spacing: 0.1em;
+				letter-spacing: 0.12em;
 				color: var(--color-brand);
 				background: var(--color-brand-tint);
-				padding: 0.25rem 0.5rem;
+				padding: 0.3rem 0.55rem;
 				border-radius: 4px;
 				line-height: 1;
+				margin-bottom: 1rem;
+			}
+
+			/* =========================================================
+			   Agentic Delivery showcase — full-width card above the grid.
+			   The point: stop describing agentic delivery, start showing it.
+			   ========================================================= */
+			.service-showcase {
+				display: grid;
+				grid-template-columns: minmax(260px, 1fr) 1.25fr;
+				gap: 3rem;
+				align-items: stretch;
+				background: var(--color-bg-elevated);
+				border: 1px solid var(--color-border);
+				border-radius: 14px;
+				padding: 2.5rem;
+				margin-bottom: 2.5rem;
+				transition: background-color 0.3s ease, border-color 0.3s ease;
+			}
+
+			.service-showcase-content {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+
+			.service-showcase-content h3 {
+				font-family: var(--font-display);
+				font-size: 2rem;
+				font-weight: 700;
+				letter-spacing: -0.015em;
+				line-height: 1.1;
+				margin: 0 0 1rem;
+				color: var(--color-text);
+			}
+
+			.service-showcase-content p {
+				color: var(--color-text-muted);
+				font-size: 1rem;
+				line-height: 1.65;
+				max-width: 48ch;
+			}
+
+			.service-showcase-terminal {
+				background: var(--terminal-bg);
+				border-radius: 8px;
+				overflow: hidden;
+				font-family: var(--font-mono);
+				font-size: 0.82rem;
+				line-height: 1.7;
+				color: var(--terminal-fg);
+				box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+				display: flex;
+				flex-direction: column;
+			}
+
+			.terminal-chrome {
+				background: var(--terminal-chrome-bg);
+				padding: 0.55rem 0.9rem;
+				display: flex;
+				gap: 0.45rem;
+				align-items: center;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+			}
+
+			.terminal-dot {
+				width: 11px;
+				height: 11px;
+				border-radius: 50%;
+				display: inline-block;
+			}
+
+			.terminal-dot:nth-child(1) { background: #ff5f57; }
+			.terminal-dot:nth-child(2) { background: #febc2e; }
+			.terminal-dot:nth-child(3) { background: #28c941; }
+
+			.terminal-title {
+				margin-left: 0.6rem;
+				font-size: 0.7rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--terminal-muted);
+			}
+
+			.terminal-body {
+				margin: 0;
+				padding: 1.25rem 1.4rem;
+				white-space: pre-wrap;
+				word-break: normal;
+				flex: 1;
+				font-family: inherit;
+			}
+
+			.terminal-prompt {
+				color: var(--color-brand);
+			}
+
+			.terminal-cmd {
+				color: var(--terminal-fg);
+			}
+
+			.terminal-check {
+				color: var(--color-brand);
+				margin-right: 0.35em;
+			}
+
+			.terminal-muted {
+				color: var(--terminal-muted);
+			}
+
+			.terminal-cursor {
+				display: inline-block;
+				width: 0.55ch;
+				height: 1em;
+				background: var(--color-brand);
+				vertical-align: -2px;
+				margin-left: 0.15ch;
+				animation: cursor-blink 1.05s steps(2, start) infinite;
+			}
+
+			@keyframes cursor-blink {
+				to { visibility: hidden; }
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.terminal-cursor { animation: none; }
+			}
+
+			@media (max-width: 860px) {
+				.service-showcase {
+					grid-template-columns: 1fr;
+					gap: 2rem;
+					padding: 2rem;
+				}
+
+				.service-showcase-content h3 {
+					font-size: 1.6rem;
+				}
+
+				.service-showcase-terminal {
+					font-size: 0.75rem;
+				}
 			}
 
 			.service-icon-plate {
-				width: 56px;
-				height: 56px;
-				margin: 0 auto 1rem;
+				width: 48px;
+				height: 48px;
+				margin: 0 0 1rem;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				background: var(--color-brand-tint);
-				border-radius: 12px;
+				border-radius: 10px;
 				transition: background 0.3s ease;
 			}
 
@@ -730,11 +909,11 @@ const currentYear = new Date().getFullYear();
 			}
 
 			.clients-intro {
-				text-align: center;
-				max-width: 640px;
-				margin: -1.5rem auto 3rem;
+				text-align: left;
+				max-width: 56ch;
+				margin: 0 0 3rem;
 				font-size: 1.1rem;
-				opacity: 0.9;
+				opacity: 0.92;
 			}
 
 			.clients-grid {
@@ -749,6 +928,7 @@ const currentYear = new Date().getFullYear();
 				border: 1px solid rgba(255, 255, 255, 0.15);
 				border-radius: 10px;
 				padding: 2rem 1rem;
+				text-align: center;
 				transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
 			}
 
@@ -798,23 +978,24 @@ const currentYear = new Date().getFullYear();
 			}
 
 			.contact-content {
-				text-align: center;
-				max-width: 640px;
-				margin: 0 auto;
+				text-align: left;
+				max-width: 720px;
+				margin: 0;
 				position: relative;
 				z-index: 2;
 			}
 
 			.contact-content p {
 				font-size: 1.1rem;
+				max-width: 56ch;
 				margin-bottom: 2rem;
 			}
 
 			.contact-info {
 				display: flex;
 				flex-wrap: wrap;
-				justify-content: center;
-				gap: 3rem;
+				justify-content: flex-start;
+				gap: 1.5rem 3rem;
 			}
 
 			.contact-item {
@@ -998,7 +1179,6 @@ const currentYear = new Date().getFullYear();
 		<header class="hero">
 			<div class="hero-content">
 				<h1>Enterprise-grade software, delivered at agentic speed.</h1>
-				<hr />
 				<p>
 					Chief-architect consulting that fuses 25+ years of hands-on
 					engineering with agentic coding — cloud, data, and platform
@@ -1017,11 +1197,13 @@ const currentYear = new Date().getFullYear();
 			<section id="about">
 				<div class="container">
 					<div class="about-layout">
-						<img
-							src="/images/brent_portrait.jpeg"
-							alt="Brent Arias"
-							class="about-portrait"
-						/>
+						<div class="about-portrait-wrap">
+							<img
+								src="/images/brent_portrait.jpeg"
+								alt="Brent Arias"
+								class="about-portrait"
+							/>
+						</div>
 						<div class="about-text">
 							<span class="section-eyebrow">// 01 · about</span>
 							<h2 class="section-title">From C-Suite to "boiler room".</h2>
@@ -1053,38 +1235,44 @@ const currentYear = new Date().getFullYear();
 					<span class="section-eyebrow">// 02 · services</span>
 					<h2 class="section-title">Services</h2>
 					<hr class="section-divider" />
-					<div class="services-grid">
-						<!-- Agentic Delivery — Lucide: terminal — FLAGSHIP -->
-						<div class="service-card">
+
+					<!-- Agentic Delivery — promoted to full-width showcase.
+					     Stops describing agentic delivery, starts showing it. -->
+					<article class="service-showcase">
+						<div class="service-showcase-content">
 							<span class="service-flagship-badge">// flagship</span>
-							<div class="service-icon-plate">
-								<svg
-									class="service-icon"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									aria-hidden="true"
-									focusable="false"
-								>
-									<path d="M12 19h8" />
-									<path d="m4 17 6-6-6-6" />
-								</svg>
-							</div>
 							<h3>Agentic Delivery</h3>
 							<p>
-								Spec-driven development with Claude Code, OpenSpec, MCP-based
-								tooling, and Playwright-verified changes. Large refactors,
-								greenfield services, and platform work delivered at multiples
-								of hand-coded pace — reviewed and owned by a senior engineer.
+								Spec-driven development with Claude Code, OpenSpec,
+								MCP-based tooling, and Playwright-verified changes. Large
+								refactors, greenfield services, and platform work delivered
+								at multiples of hand-coded pace — reviewed and owned by a
+								senior engineer.
 							</p>
 						</div>
+						<div class="service-showcase-terminal" aria-hidden="true">
+							<div class="terminal-chrome">
+								<span class="terminal-dot"></span>
+								<span class="terminal-dot"></span>
+								<span class="terminal-dot"></span>
+								<span class="terminal-title">claude code · session</span>
+							</div>
+							<pre class="terminal-body"><span class="terminal-prompt">$</span> <span class="terminal-cmd">claude code "refactor the auth middleware to drop legacy session tokens"</span>
 
+<span class="terminal-check">✓</span> Read 14 files <span class="terminal-muted">· 2 specs</span>
+<span class="terminal-check">✓</span> Drafted spec <span class="terminal-muted">auth-middleware-rewrite.spec.md</span>
+<span class="terminal-check">✓</span> Generated patch <span class="terminal-muted">+312 −188 across 9 files</span>
+<span class="terminal-check">✓</span> Ran <span class="terminal-muted">unit (47) · integration (12) · e2e (5)</span> — all pass
+<span class="terminal-check">✓</span> Playwright sweep <span class="terminal-muted">— 0 regressions on 4 critical journeys</span>
+
+<span class="terminal-muted">Done · 4m 12s · reviewed and committed by Brent</span><span class="terminal-cursor"></span></pre>
+						</div>
+					</article>
+
+					<div class="services-grid">
 						<!-- Cloud Migration — Lucide: cloud-upload -->
 						<div class="service-card">
+							<span class="service-number">01</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1114,6 +1302,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- Scaling & Performance — Lucide: gauge -->
 						<div class="service-card">
+							<span class="service-number">02</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1142,6 +1331,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- App Modernization — Lucide: layers -->
 						<div class="service-card">
+							<span class="service-number">03</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1171,6 +1361,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- Data Engineering — Lucide: database -->
 						<div class="service-card">
+							<span class="service-number">04</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1200,6 +1391,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- Security & Compliance — Lucide: shield-check -->
 						<div class="service-card">
+							<span class="service-number">05</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1228,6 +1420,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- Digital Transformation — Lucide: compass -->
 						<div class="service-card">
+							<span class="service-number">06</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1256,6 +1449,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- CI/CD & Automation — Lucide: git-branch -->
 						<div class="service-card">
+							<span class="service-number">07</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
