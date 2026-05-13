@@ -9,15 +9,25 @@ const currentYear = new Date().getFullYear();
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<meta name="generator" content="Astro" />
 		<meta name="description" content="Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias." />
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:creator" content="@mystagogue" />
-		<meta name="twitter:title" content="AxisCode — Agentic engineering for serious software" />
-		<meta name="twitter:description" content="Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias." />
+
+		<!-- Social link previews (Open Graph drives LinkedIn, Slack, iMessage, FB, Discord, etc.) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://axiscode.com/" />
+		<meta property="og:title" content="AxisCode — Agentic engineering for serious software" />
+		<meta property="og:description" content="Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias." />
+		<meta property="og:image" content="https://axiscode.com/images/bg-masthead_network.jpg" />
+		<meta property="og:image:width" content="1680" />
+		<meta property="og:image:height" content="1050" />
+		<meta property="og:image:alt" content="Stylized network of nodes against a deep purple background, evoking distributed systems and cloud architecture." />
+
 		<meta name="theme-color" content="#69995D" />
 		<link rel="icon" type="image/png" href="/icons/icon-48x48.png?v=cd2c318ba986b466980f6c2b1c659f37" />
 		<title>AxisCode — Agentic-accelerated cloud architecture & engineering</title>
 
-		<!-- Set theme before body paints so there is no flash -->
+		<!-- Set theme before body paints so there is no flash.
+		     Priority: explicit toggle choice (localStorage) > OS preference
+		     for dark > light. When the OS has no preference or signals
+		     light, we land on light — that is the deliberate tie-break. -->
 		<script is:inline>
 			(function () {
 				try {
@@ -75,6 +85,10 @@ const currentYear = new Date().getFullYear();
 				/* Hero overlay */
 				--hero-overlay: rgba(52, 35, 166, 0.6);
 
+				/* Clients overlay — slightly heavier than hero so the
+				   network image reads as a "night version" of the same scene. */
+				--clients-overlay: rgba(52, 35, 166, 0.82);
+
 				/* Card shadow (mode-aware) */
 				--card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
 
@@ -101,6 +115,7 @@ const currentYear = new Date().getFullYear();
 				--color-about-fg: #ffffff;
 
 				--hero-overlay: rgba(52, 35, 166, 0.75);
+				--clients-overlay: rgba(28, 18, 90, 0.9);
 
 				--card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
 
@@ -118,6 +133,30 @@ const currentYear = new Date().getFullYear();
 
 			html {
 				scroll-behavior: smooth;
+			}
+
+			/* =========================================================
+			   Skip-to-content link (keyboard accessibility)
+			   ========================================================= */
+			.skip-link {
+				position: absolute;
+				top: -100px;
+				left: 0;
+				background: var(--color-brand);
+				color: white;
+				padding: 0.75rem 1.25rem;
+				text-decoration: none;
+				font-family: var(--font-display);
+				font-weight: 500;
+				border-radius: 0 0 6px 0;
+				z-index: 1000;
+				transition: top 0.2s ease;
+			}
+
+			.skip-link:focus {
+				top: 0;
+				outline: 2px solid white;
+				outline-offset: -4px;
 			}
 
 			body {
@@ -317,6 +356,49 @@ const currentYear = new Date().getFullYear();
 				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 			}
 
+			/* Trust-signal strip beneath the CTA */
+			.hero-stats {
+				list-style: none;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				gap: 0.5rem 1.5rem;
+				margin: 2.5rem auto 0;
+				padding: 0;
+				font-family: var(--font-mono);
+				font-size: 0.7rem;
+				font-weight: 500;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: rgba(255, 255, 255, 0.7);
+			}
+
+			.hero-stats li {
+				display: inline-flex;
+				align-items: center;
+			}
+
+			.hero-stats li + li::before {
+				content: '';
+				display: inline-block;
+				width: 1px;
+				height: 0.9em;
+				background: currentColor;
+				opacity: 0.45;
+				margin-right: 1.5rem;
+			}
+
+			@media (max-width: 600px) {
+				.hero-stats {
+					gap: 0.5rem 1rem;
+					font-size: 0.65rem;
+				}
+				.hero-stats li + li::before {
+					margin-right: 1rem;
+				}
+			}
+
 			/* =========================================================
 			   Sections & shared
 			   ========================================================= */
@@ -404,7 +486,7 @@ const currentYear = new Date().getFullYear();
 				left: 0;
 				right: 0;
 				height: 4rem;
-				background: linear-gradient(to bottom, var(--color-bg), var(--color-panel-deep));
+				background: linear-gradient(to bottom, var(--color-bg), var(--clients-overlay));
 				pointer-events: none;
 				z-index: 1;
 			}
@@ -416,7 +498,7 @@ const currentYear = new Date().getFullYear();
 				left: 0;
 				right: 0;
 				height: 4rem;
-				background: linear-gradient(to bottom, var(--color-panel-deep), var(--color-bg));
+				background: linear-gradient(to bottom, var(--clients-overlay), var(--color-about-bg));
 				pointer-events: none;
 				z-index: 1;
 			}
@@ -574,6 +656,23 @@ const currentYear = new Date().getFullYear();
 				transform: scaleX(1);
 			}
 
+			/* Flagship badge: small mono pill on the featured service card */
+			.service-flagship-badge {
+				position: absolute;
+				top: 0.85rem;
+				right: 0.85rem;
+				font-family: var(--font-mono);
+				font-size: 0.6rem;
+				font-weight: 500;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: var(--color-brand);
+				background: var(--color-brand-tint);
+				padding: 0.25rem 0.5rem;
+				border-radius: 4px;
+				line-height: 1;
+			}
+
 			.service-icon-plate {
 				width: 56px;
 				height: 56px;
@@ -609,9 +708,13 @@ const currentYear = new Date().getFullYear();
 			   ========================================================= */
 			#clients {
 				position: relative;
-				background: var(--color-panel-deep);
+				background:
+					linear-gradient(var(--clients-overlay), var(--clients-overlay)),
+					url('/images/bg-masthead_network.jpg');
+				background-size: cover;
+				background-position: center;
+				background-attachment: scroll;
 				color: var(--color-on-panel-deep);
-				transition: background-color 0.3s ease;
 			}
 
 			#clients .section-title {
@@ -673,19 +776,38 @@ const currentYear = new Date().getFullYear();
 			   ========================================================= */
 			#contact {
 				position: relative;
-				background: var(--color-bg);
+				background: var(--color-about-bg);
+				color: var(--color-about-fg);
+				transition: background-color 0.3s ease;
+			}
+
+			#contact .section-title,
+			#contact .contact-content p,
+			#contact .contact-item,
+			#contact .contact-icon,
+			#contact .contact-item a {
+				color: var(--color-about-fg);
+			}
+
+			#contact .section-divider {
+				border-color: var(--color-about-fg);
+			}
+
+			#contact .section-eyebrow {
+				color: rgba(255, 255, 255, 0.85);
 			}
 
 			.contact-content {
 				text-align: center;
 				max-width: 640px;
 				margin: 0 auto;
+				position: relative;
+				z-index: 2;
 			}
 
 			.contact-content p {
 				font-size: 1.1rem;
 				margin-bottom: 2rem;
-				color: var(--color-text);
 			}
 
 			.contact-info {
@@ -699,22 +821,22 @@ const currentYear = new Date().getFullYear();
 				display: flex;
 				align-items: center;
 				gap: 0.75rem;
-				color: var(--color-text);
 			}
 
 			.contact-icon {
 				width: 22px;
 				height: 22px;
-				color: var(--color-brand);
 			}
 
 			.contact-item a {
-				color: var(--color-brand);
 				text-decoration: none;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+				padding-bottom: 1px;
+				transition: border-color 0.2s ease;
 			}
 
 			.contact-item a:hover {
-				text-decoration: underline;
+				border-bottom-color: var(--color-about-fg);
 			}
 
 			/* =========================================================
@@ -765,26 +887,28 @@ const currentYear = new Date().getFullYear();
 
 			/* =========================================================
 			   Scroll-triggered fade-in (service cards)
+			   JS opts in by adding .js-fade. Without JS — or before the
+			   script runs — cards are visible by default.
 			   ========================================================= */
-			.service-card {
+			.service-card.js-fade {
 				opacity: 0;
 				transform: translateY(8px);
 			}
 
-			.service-card.is-visible {
+			.service-card.js-fade.is-visible {
 				opacity: 1;
 				transform: translateY(0);
 				transition: opacity 0.5s ease, transform 0.5s ease;
 			}
 
 			/* Stagger: each card delays slightly after the previous */
-			.service-card.is-visible:nth-child(2) { transition-delay: 0.06s; }
-			.service-card.is-visible:nth-child(3) { transition-delay: 0.12s; }
-			.service-card.is-visible:nth-child(4) { transition-delay: 0.18s; }
-			.service-card.is-visible:nth-child(5) { transition-delay: 0.24s; }
-			.service-card.is-visible:nth-child(6) { transition-delay: 0.30s; }
-			.service-card.is-visible:nth-child(7) { transition-delay: 0.36s; }
-			.service-card.is-visible:nth-child(8) { transition-delay: 0.42s; }
+			.service-card.js-fade.is-visible:nth-child(2) { transition-delay: 0.06s; }
+			.service-card.js-fade.is-visible:nth-child(3) { transition-delay: 0.12s; }
+			.service-card.js-fade.is-visible:nth-child(4) { transition-delay: 0.18s; }
+			.service-card.js-fade.is-visible:nth-child(5) { transition-delay: 0.24s; }
+			.service-card.js-fade.is-visible:nth-child(6) { transition-delay: 0.30s; }
+			.service-card.js-fade.is-visible:nth-child(7) { transition-delay: 0.36s; }
+			.service-card.js-fade.is-visible:nth-child(8) { transition-delay: 0.42s; }
 
 			/* =========================================================
 			   Reduced motion
@@ -811,6 +935,7 @@ const currentYear = new Date().getFullYear();
 		</style>
 	</head>
 	<body>
+		<a href="#main" class="skip-link">Skip to main content</a>
 		<nav>
 			<div class="nav-container">
 				<a href="#page-top" class="nav-logo">
@@ -876,14 +1001,19 @@ const currentYear = new Date().getFullYear();
 				<hr />
 				<p>
 					Chief-architect consulting that fuses 25+ years of hands-on
-					engineering with modern agentic coding — cloud, data, and platform
+					engineering with agentic coding — cloud, data, and platform
 					work shipped in a fraction of the usual time.
 				</p>
 				<a href="#about" class="hero-cta">See How</a>
+				<ul class="hero-stats" aria-label="At a glance">
+					<li>25+ years hands-on</li>
+					<li>Fortune 500 clients</li>
+					<li>Specs · Tests · Review</li>
+				</ul>
 			</div>
 		</header>
 
-		<main>
+		<main id="main">
 			<section id="about">
 				<div class="container">
 					<div class="about-layout">
@@ -924,8 +1054,9 @@ const currentYear = new Date().getFullYear();
 					<h2 class="section-title">Services</h2>
 					<hr class="section-divider" />
 					<div class="services-grid">
-						<!-- Agentic Delivery — Lucide: terminal -->
+						<!-- Agentic Delivery — Lucide: terminal — FLAGSHIP -->
 						<div class="service-card">
+							<span class="service-flagship-badge">// flagship</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1160,7 +1291,7 @@ const currentYear = new Date().getFullYear();
 					<h2 class="section-title">AxisCode Clients</h2>
 					<hr class="section-divider" />
 					<p class="clients-intro">
-						<strong>Trusted by enterprises that can't afford to get architecture wrong.</strong>
+						<strong>From whiteboard to production — for enterprises that take both seriously.</strong>
 					</p>
 					<div class="clients-grid">
 						<!-- Amex — Simple Icons brand mark -->
@@ -1329,6 +1460,29 @@ const currentYear = new Date().getFullYear();
 								</svg>
 								<a href="mailto:barias@axiscode.com">barias@axiscode.com</a>
 							</div>
+							<div class="contact-item">
+								<svg
+									class="contact-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8z" />
+									<rect width="4" height="12" x="2" y="9" />
+									<circle cx="4" cy="4" r="2" />
+								</svg>
+								<a
+									href="https://www.linkedin.com/in/brentarias/"
+									rel="noopener"
+									target="_blank"
+								>linkedin.com/in/brentarias</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -1363,9 +1517,16 @@ const currentYear = new Date().getFullYear();
 				}
 			});
 
-			/* Scroll-triggered fade-in for service cards */
-			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			/* Scroll-triggered fade-in for service cards.
+			   Cards are visible by default; we opt them into the fade
+			   only when JS is alive AND motion is not reduced. That way a
+			   broken/slow observer can never leave cards invisible. */
+			if (
+				'IntersectionObserver' in window &&
+				!window.matchMedia('(prefers-reduced-motion: reduce)').matches
+			) {
 				const cards = document.querySelectorAll('.service-card');
+				cards.forEach((card) => card.classList.add('js-fade'));
 				const observer = new IntersectionObserver(
 					(entries) => {
 						entries.forEach((entry) => {
@@ -1378,11 +1539,6 @@ const currentYear = new Date().getFullYear();
 					{ threshold: 0.15 }
 				);
 				cards.forEach((card) => observer.observe(card));
-			} else {
-				/* Reduced motion: make cards visible immediately */
-				document.querySelectorAll('.service-card').forEach((card) => {
-					card.classList.add('is-visible');
-				});
 			}
 		</script>
 	</body>

@@ -12,6 +12,85 @@ Scoring convention per item:
 
 ---
 
+## 0. Implementation status (May 2026)
+
+The work below has shipped in [src/pages/index.astro](src/pages/index.astro).
+This section is the retrospective summary; the rest of the document is
+preserved as the original design rationale.
+
+### Shipped as-described
+
+- §1 Nav tagline alignment.
+- §2 Typography (Geist + JetBrains Mono).
+- §3a Service icons (Lucide swap).
+- §3c Portrait (confirmed not stock).
+- §4 Layout polish (icon plate, hover top-border, section eyebrows,
+  noise on About, section gradient transitions).
+- §5 Dark/light mode toggle.
+- §6.1 Dynamic footer year.
+- §6.2 `aria-hidden` on decorative SVGs.
+- §6.3 `prefers-reduced-motion` guard.
+- §6.4 Scroll fade-in on service cards (made safer — see below).
+- §6.5 "Let's talk." replacing "Let's Get In Touch!".
+- §6.8 Skip-to-content link.
+
+### Shipped with deviation
+
+- **§3b Client brand marks** — Amex and Microsoft shipped from Simple
+  Icons as recommended. Circle K and GameStop are **not** in Simple
+  Icons (verified against `simple-icons@16.19.0`); the table in §3b is
+  incorrect for those rows. Those two cards use Lucide fallbacks
+  (`store` and `gamepad-2`) alongside Silicon Valley Bank's `landmark`
+  and Christian Care Ministry's `heart`. If real brand marks become
+  desirable, source them from each company's official brand-assets page
+  and commit the SVGs to `public/images/`.
+- **§5 Dark/light mode** — implemented as JS-driven `data-theme`
+  attribute rather than CSS `@media (prefers-color-scheme: dark)`.
+  Reason: single source of truth avoids the dual-source conflict
+  between the media query and the user's toggle. The JS still reads the
+  OS preference; the deliberate tie-break is **light** when there is no
+  saved choice and no OS preference.
+- **§6.4 Scroll fade-in** — service cards are visible *by default*.
+  JS adds a `.js-fade` opt-in class before the IntersectionObserver
+  registers, so a no-JS or failed-observer path can no longer leave
+  cards invisible.
+- **§6.6 `og:image`** — wired up using the existing hero asset
+  (`bg-masthead_network.jpg`, 1680×1050) as a stand-in. Long-term, a
+  custom 1200×630 with the AxisCode wordmark + tagline is still
+  recommended.
+- **§6.7 Twitter handle** — rather than verifying `@mystagogue`, all
+  `twitter:*` meta was removed and replaced with a full Open Graph
+  block. Twitter/X falls back to OG when no twitter-specific card is
+  declared; previews still render everywhere.
+
+### Shipped beyond the doc
+
+- **Trust-signal strip** in the hero, beneath the CTA — three mono items
+  separated by thin vertical dividers:
+  `25+ YEARS HANDS-ON  |  FORTUNE 500 CLIENTS  |  SPECS · TESTS · REVIEW`.
+  Reinforces seniority + breadth + engineering discipline in the most-
+  seen real estate.
+- **Flagship pill** on the Agentic Delivery service card — small mono
+  `// flagship` badge in brand-green-on-brand-tint, top-right of the
+  card. Establishes Agentic Delivery as the featured offering without
+  visually unbalancing the grid.
+- **LinkedIn contact item** in the Contact section — Lucide `linkedin`
+  icon → `linkedin.com/in/brentarias`. Replaces the dropped Twitter
+  reference; sits alongside phone and email.
+- **Bottom-half color rebalance** — the as-shipped version of the doc
+  above lost visual punch below About (flat white Services → flat dark
+  Clients → flat white Contact). Resolved by reusing the hero's purple +
+  network image as the Clients background (slightly heavier overlay,
+  reads as a "night version" of the hero), and converting Contact into
+  a brand-green panel mirroring About. The page rhythm becomes
+  purple → green → white → purple → green → dark. The §4e gradient
+  transitions were updated to match (white → purple at the top of
+  Clients, purple → green at the top of Contact). Two new CSS
+  variables drive the Clients overlay (`--clients-overlay`) so light
+  and dark modes can carry distinct values.
+
+---
+
 ## 1. Nav tagline alignment — ALREADY FIXED
 
 The original `align-items: baseline` put the smaller "· agentic engineering"
@@ -136,9 +215,9 @@ Mapping:
 | American Express          | `americanexpress`            | ✅ available |
 | Microsoft                 | `microsoft`                  | ✅ available |
 | Silicon Valley Bank       | —                            | Not in Simple Icons. Use a tasteful generic (`landmark` / `building-columns` from Lucide). |
-| Circle K                  | `circlek`                    | ✅ available |
+| Circle K                  | `circlek`                    | ❌ **Not actually in Simple Icons** (verified against v16.19.0). See §0 for the shipped fallback. |
 | Christian Care Ministry   | —                            | Not in Simple Icons. Keep `heart` (from Lucide). |
-| GameStop                  | `gamestop`                   | ✅ available |
+| GameStop                  | `gamestop`                   | ❌ **Not actually in Simple Icons** (verified against v16.19.0). See §0 for the shipped fallback. |
 
 Render treatment: on the dark clients strip, strip fills to white so the
 brand marks read as monochrome silhouettes. This avoids implying

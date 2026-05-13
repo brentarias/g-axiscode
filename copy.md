@@ -20,6 +20,80 @@ Two things we are deliberately threading:
 
 ---
 
+## 0. Implementation status (May 2026)
+
+The work below has shipped in [src/pages/index.astro](src/pages/index.astro).
+This section is the retrospective summary; the rest of the document is
+preserved as the original copy rationale and alternate-line library.
+
+### Shipped as-recommended
+
+- §1 Navigation tagline (`· agentic engineering`).
+- §2 Hero — Recommended headline and sub-line, with one tweak: the word
+  "modern" was dropped from "modern agentic coding" so the line reads
+  "...with agentic coding — cloud, data, and platform work...".
+- §3 About — Recommended body; CTA kept as `Contact Brent!`.
+- §4 Services — all 8 cards as written. Agentic Delivery sits first and
+  carries a small `// flagship` mono badge (see additions below).
+  Internationalization was dropped, as planned.
+- §7 Meta/SEO — `<title>`, `<meta name="description">`, OG title and
+  description as recommended (Twitter meta was dropped; see deviation
+  below).
+
+### Shipped with different wording
+
+- **§5 Clients one-liner** — proposed:
+  > "Trusted by enterprises that can't afford to get architecture wrong."
+
+  Shipped:
+  > "From whiteboard to production — for enterprises that take both
+  > seriously."
+
+  Reason: the proposed line over-indexed on "architect" alone, while
+  Brent also engages in hard-core hands-on coding and now agentic
+  engineering. The shipped line preserves the structural "for enterprises
+  that…" cadence while broadening the positioning across architect /
+  hands-on engineer / agentic operator.
+
+- **§6 Contact** — shipped the **Alternate** ("closer to current tone")
+  body — `Ready to start your next project with AxisCode?...` — not the
+  Recommended ("Bring the hardest piece of your roadmap…"). Both lines
+  remain in the doc as legitimate options for a later revision.
+
+- **§7 Twitter meta** — all `twitter:*` tags were dropped in favor of a
+  full Open Graph block. Twitter/X reads OG when no twitter-specific
+  card is declared, so previews still render. The `@mystagogue` handle
+  question is moot as a result.
+
+### Copy that shipped in addition to this doc
+
+- **Trust-signal strip** in the hero, mono uppercase, on white at ~70%
+  opacity:
+  > `25+ YEARS HANDS-ON  |  FORTUNE 500 CLIENTS  |  SPECS · TESTS · REVIEW`
+
+  Three short statements separated by thin vertical dividers, beneath
+  the CTA. Carries seniority, breadth, and engineering discipline in the
+  most-seen real estate.
+
+- **Flagship pill** on the Agentic Delivery service card: `// flagship`
+  (mono, brand-green, lowercase — slashes echo the section eyebrows).
+
+- **LinkedIn contact item**: visible link text
+  `linkedin.com/in/brentarias`, sitting next to phone and email under
+  the Contact heading.
+
+- **Skip-to-content link** (keyboard-only, hidden until focus):
+  `Skip to main content`.
+
+### Items not yet revisited
+
+- Whether to flip §6 Contact from the Alternate to the Recommended
+  body before launch.
+- Whether to generate a custom 1200×630 OG image (currently using the
+  1680×1050 hero asset as a stand-in).
+
+---
+
 ## 1. Navigation
 
 Unchanged: `AxisCode | About | Services | Clients | Contact`.
