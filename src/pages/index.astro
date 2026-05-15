@@ -24,6 +24,16 @@ const currentYear = new Date().getFullYear();
 		<link rel="icon" type="image/png" href="/icons/icon-48x48.png?v=cd2c318ba986b466980f6c2b1c659f37" />
 		<title>AxisCode — Agentic-accelerated cloud architecture & engineering</title>
 
+		<!-- Google tag (gtag.js) -->
+		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-C9G25KSTXC"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-C9G25KSTXC');
+		</script>
+
 		<!-- Set theme before body paints so there is no flash.
 		     Priority: explicit toggle choice (localStorage) > OS preference
 		     for dark > light. When the OS has no preference or signals
