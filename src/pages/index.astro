@@ -12,17 +12,56 @@ const currentYear = new Date().getFullYear();
 
 		<!-- Social link previews (Open Graph drives LinkedIn, Slack, iMessage, FB, Discord, etc.) -->
 		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="AxisCode" />
+		<meta property="og:locale" content="en_US" />
 		<meta property="og:url" content="https://axiscode.com/" />
 		<meta property="og:title" content="AxisCode — Agentic engineering for serious software" />
 		<meta property="og:description" content="Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias." />
-		<meta property="og:image" content="https://axiscode.com/images/bg-masthead_network.jpg" />
-		<meta property="og:image:width" content="1680" />
-		<meta property="og:image:height" content="1050" />
+		<!-- Primary 1200x630 banner (the ratio large-preview platforms expect) -->
+		<meta property="og:image" content="https://axiscode.com/images/og-banner.jpg" />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Stylized network of nodes against a deep purple background, evoking distributed systems and cloud architecture." />
+		<!-- Square 800x800 companion (thumbnail-oriented contexts prefer square) -->
+		<meta property="og:image" content="https://axiscode.com/images/og-square.jpg" />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="800" />
+		<meta property="og:image:height" content="800" />
 		<meta property="og:image:alt" content="Stylized network of nodes against a deep purple background, evoking distributed systems and cloud architecture." />
 
+		<!-- Twitter / X (twitter:card is required for the large-image layout;
+		     X does not infer it from Open Graph alone) -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="AxisCode — Agentic engineering for serious software" />
+		<meta name="twitter:description" content="Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias." />
+		<meta name="twitter:image" content="https://axiscode.com/images/og-banner.jpg" />
+		<meta name="twitter:image:alt" content="Stylized network of nodes against a deep purple background, evoking distributed systems and cloud architecture." />
+
 		<meta name="theme-color" content="#69995D" />
+		<link rel="canonical" href="https://axiscode.com/" />
 		<link rel="icon" type="image/png" href="/icons/icon-48x48.png?v=cd2c318ba986b466980f6c2b1c659f37" />
 		<title>AxisCode — Agentic-accelerated cloud architecture & engineering</title>
+
+		<!-- Structured data for search engines and link unfurlers.
+		     Only facts already shown on the page — nothing new is disclosed. -->
+		<script type="application/ld+json" is:inline>
+			{
+				"@context": "https://schema.org",
+				"@type": "ProfessionalService",
+				"name": "AxisCode",
+				"url": "https://axiscode.com/",
+				"description": "Senior architecture and engineering consulting for cloud, data, and platform work — delivered at agentic speed by Brent Arias.",
+				"image": "https://axiscode.com/images/og-banner.jpg",
+				"telephone": "+1-602-692-8088",
+				"email": "barias@axiscode.com",
+				"founder": {
+					"@type": "Person",
+					"name": "Brent Arias",
+					"jobTitle": "Chief Architect"
+				}
+			}
+		</script>
 
 		<!-- Google tag (gtag.js) -->
 		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-C9G25KSTXC"></script>

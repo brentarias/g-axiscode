@@ -60,10 +60,13 @@ preserved as the original copy rationale and alternate-line library.
   Recommended ("Bring the hardest piece of your roadmap…"). Both lines
   remain in the doc as legitimate options for a later revision.
 
-- **§7 Twitter meta** — all `twitter:*` tags were dropped in favor of a
-  full Open Graph block. Twitter/X reads OG when no twitter-specific
-  card is declared, so previews still render. The `@mystagogue` handle
-  question is moot as a result.
+- **§7 Twitter meta** — originally all `twitter:*` tags were dropped in
+  favor of a full Open Graph block, on the theory that Twitter/X falls
+  back to OG. That fallback covers title/description/image but **not**
+  the card layout: without `twitter:card: summary_large_image`, X renders
+  a small summary instead of the large banner. Reinstated June 2026 with
+  the minimal set (`card`, `title`, `description`, `image`, `image:alt`).
+  No `twitter:site` handle is declared — `@mystagogue` remains unused.
 
 ### Copy that shipped in addition to this doc
 
