@@ -547,7 +547,7 @@ const currentYear = new Date().getFullYear();
 				left: 0;
 				right: 0;
 				height: 4rem;
-				background: linear-gradient(to bottom, var(--color-bg), var(--clients-overlay));
+				background: linear-gradient(to bottom, var(--color-bg-subtle), var(--clients-overlay));
 				pointer-events: none;
 				z-index: 1;
 			}
@@ -932,6 +932,33 @@ const currentYear = new Date().getFullYear();
 			}
 
 			/* =========================================================
+			   Proof
+			   ========================================================= */
+			#proof {
+				position: relative;
+				background: var(--color-bg-subtle);
+				transition: background-color 0.3s ease;
+			}
+
+			.proof-text {
+				max-width: 62ch;
+				font-size: 1.1rem;
+				line-height: 1.7;
+			}
+
+			.proof-text a {
+				color: var(--color-brand-strong);
+				text-decoration: none;
+				border-bottom: 1px solid currentColor;
+				padding-bottom: 1px;
+				transition: color 0.2s ease;
+			}
+
+			.proof-text a:hover {
+				color: var(--color-text);
+			}
+
+			/* =========================================================
 			   Clients
 			   ========================================================= */
 			#clients {
@@ -967,7 +994,7 @@ const currentYear = new Date().getFullYear();
 
 			.clients-grid {
 				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 				gap: 1.5rem;
 				text-align: center;
 			}
@@ -1091,7 +1118,7 @@ const currentYear = new Date().getFullYear();
 				}
 
 				.nav-links {
-					gap: 1.5rem;
+					gap: 1rem;
 					order: 3;
 					width: 100%;
 					justify-content: center;
@@ -1174,6 +1201,7 @@ const currentYear = new Date().getFullYear();
 				<ul class="nav-links">
 					<li><a href="#about">About</a></li>
 					<li><a href="#services">Services</a></li>
+					<li><a href="#proof">Proof</a></li>
 					<li><a href="#clients">Clients</a></li>
 					<li><a href="#contact">Contact</a></li>
 				</ul>
@@ -1229,15 +1257,16 @@ const currentYear = new Date().getFullYear();
 			<div class="hero-content">
 				<h1>Enterprise-grade software, delivered at agentic speed.</h1>
 				<p>
-					Chief-architect consulting that fuses 25+ years of hands-on
+					Chief-architect consulting that fuses 20+ years of hands-on
 					engineering with agentic coding — cloud, data, and platform
-					work shipped in a fraction of the usual time.
+					work built by AI agents, verified end to end, and shipped
+					in a fraction of the usual time.
 				</p>
 				<a href="#about" class="hero-cta">See How</a>
 				<ul class="hero-stats" aria-label="At a glance">
-					<li>25+ years hands-on</li>
+					<li>20+ years hands-on</li>
 					<li>Fortune 500 clients</li>
-					<li>Specs · Tests · Review</li>
+					<li>Specs · Tests · Release gate</li>
 				</ul>
 			</div>
 		</header>
@@ -1258,7 +1287,7 @@ const currentYear = new Date().getFullYear();
 							<h2 class="section-title">From C-Suite to "boiler room".</h2>
 							<hr class="section-divider" />
 							<p>
-								Need project-saving triage in an IT department? Digital
+								Need project-saving triage in an IT department? An IT
 								transformation that actually moves a P&amp;L? Across financial
 								services, healthcare, and retail, Brent Arias has the
 								battle-hardened experience to turn the ship — and now the
@@ -1267,9 +1296,9 @@ const currentYear = new Date().getFullYear();
 							<p>
 								As a hands-on Chief Architect, Brent maps the technology and
 								the process, engages directly with stakeholders and technical
-								leads, and writes and reviews code alongside his agents. Specs
-								are treated as source of truth, tests as guardrails, and AI as
-								a force multiplier — not a substitute for judgment. The
+								leads, and directs the AI coding agents that write and test
+								the code. Specs are treated as source of truth, tests as
+								guardrails, and AI as a force multiplier — not a substitute for judgment. The
 								deliverable is software a senior engineer would be proud to
 								own, produced at a pace that used to be impossible.
 							</p>
@@ -1292,11 +1321,13 @@ const currentYear = new Date().getFullYear();
 							<span class="service-flagship-badge">// flagship</span>
 							<h3>Agentic Delivery</h3>
 							<p>
-								Spec-driven development with Claude Code, OpenSpec,
-								MCP-based tooling, and Playwright-verified changes. Large
-								refactors, greenfield services, and platform work delivered
-								at multiples of hand-coded pace — reviewed and owned by a
-								senior engineer.
+								Spec-driven development with Claude Code, OpenAI's Codex,
+								OpenSpec, and MCP-based tooling. Large refactors, greenfield
+								services, and platform work built by agents on several
+								features at once, verified end to end on a deployed staging
+								environment, and owned by a senior engineer. On FAM Central,
+								every batch of seven features took about twelve hours; by
+								hand, Brent estimates each one at eight weeks.
 							</p>
 						</div>
 						<div class="service-showcase-terminal" aria-hidden="true">
@@ -1306,7 +1337,7 @@ const currentYear = new Date().getFullYear();
 								<span class="terminal-dot"></span>
 								<span class="terminal-title">claude code · session</span>
 							</div>
-							<pre class="terminal-body"><span class="terminal-prompt">$</span> <span class="terminal-cmd">claude code "refactor the auth middleware to drop legacy session tokens"</span>
+							<pre class="terminal-body"><span class="terminal-prompt">$</span> <span class="terminal-cmd">claude "refactor the auth middleware to drop legacy session tokens"</span>
 
 <span class="terminal-check">✓</span> Read 14 files <span class="terminal-muted">· 2 specs</span>
 <span class="terminal-check">✓</span> Drafted spec <span class="terminal-muted">auth-middleware-rewrite.spec.md</span>
@@ -1314,14 +1345,45 @@ const currentYear = new Date().getFullYear();
 <span class="terminal-check">✓</span> Ran <span class="terminal-muted">unit (47) · integration (12) · e2e (5)</span> — all pass
 <span class="terminal-check">✓</span> Playwright sweep <span class="terminal-muted">— 0 regressions on 4 critical journeys</span>
 
-<span class="terminal-muted">Done · 4m 12s · reviewed and committed by Brent</span><span class="terminal-cursor"></span></pre>
+<span class="terminal-muted">Done · 4m 12s · verified by tests · released by Brent</span><span class="terminal-cursor"></span></pre>
 						</div>
 					</article>
 
 					<div class="services-grid">
-						<!-- Cloud Migration — Lucide: cloud-upload -->
+						<!-- Agentic Engineering for Your Team — Lucide: users -->
 						<div class="service-card">
 							<span class="service-number">01</span>
+							<div class="service-icon-plate">
+								<svg
+									class="service-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+									<circle cx="9" cy="7" r="4" />
+									<path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+									<path d="M16 3.13a4 4 0 0 1 0 7.75" />
+								</svg>
+							</div>
+							<h3>Agentic Engineering for Your Team</h3>
+							<p>
+								Brent sets up spec-driven, agent-run delivery in your
+								codebase: specifications, parallel feature work, and
+								end-to-end verification on a deployed environment. Then he
+								trains your engineers to run it.
+							</p>
+						</div>
+
+						<!-- Cloud Migration — Lucide: cloud-upload -->
+						<div class="service-card">
+							<span class="service-number">02</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1343,7 +1405,7 @@ const currentYear = new Date().getFullYear();
 							<h3>Cloud Migration</h3>
 							<p>
 								Data-center analysis and sizing, cost projections, platform
-								selection (serverless, SaaS, PaaS, Kubernetes) and
+								selection (serverless, managed services, Kubernetes, or SaaS) and
 								implementation. BC/DR design, landing zones, and Infrastructure
 								as Code — scaffolded and hardened with agentic workflows.
 							</p>
@@ -1351,7 +1413,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- Scaling & Performance — Lucide: gauge -->
 						<div class="service-card">
-							<span class="service-number">02</span>
+							<span class="service-number">03</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1371,8 +1433,8 @@ const currentYear = new Date().getFullYear();
 							</div>
 							<h3>Scaling &amp; Performance</h3>
 							<p>
-								Elastic computation design, load and performance testing, and
-								maintainable coding practices that hold up under growth.
+								Autoscaling design, load and performance testing, and
+								architecture that holds up under growth.
 								Bottlenecks profiled, fixes specified, and regressions fenced
 								off with automated checks.
 							</p>
@@ -1380,7 +1442,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- App Modernization — Lucide: layers -->
 						<div class="service-card">
-							<span class="service-number">03</span>
+							<span class="service-number">04</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1401,16 +1463,17 @@ const currentYear = new Date().getFullYear();
 							</div>
 							<h3>App Modernization</h3>
 							<p>
-								Refactoring monoliths for containers, PaaS, or microservices.
-								Database migration to cloud-native storage. Legacy codebases
-								brought forward with agent-assisted refactors that are
-								reviewable, test-covered, and safe to deploy.
+								Moving legacy applications onto containers and managed cloud
+								services. Likewise database migration to managed cloud
+								databases. Legacy codebases brought forward with
+								agent-assisted refactors that are reviewable, test-covered, and
+								safe to deploy.
 							</p>
 						</div>
 
 						<!-- Data Engineering — Lucide: database -->
 						<div class="service-card">
-							<span class="service-number">04</span>
+							<span class="service-number">05</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1431,7 +1494,8 @@ const currentYear = new Date().getFullYear();
 							</div>
 							<h3>Data Engineering</h3>
 							<p>
-								EAI, ODS, and data-lake design and build-out. Telemetry and
+								Data-lake and data-platform design and build-out, and
+								integration between enterprise systems. Telemetry and
 								high-volume, event-driven processing. Pipelines specified,
 								generated, and hardened with agentic tooling — so data
 								platforms ship in weeks, not quarters.
@@ -1440,7 +1504,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- Security & Compliance — Lucide: shield-check -->
 						<div class="service-card">
-							<span class="service-number">05</span>
+							<span class="service-number">06</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1467,9 +1531,9 @@ const currentYear = new Date().getFullYear();
 							</p>
 						</div>
 
-						<!-- Digital Transformation — Lucide: compass -->
+						<!-- IT Transformation — Lucide: compass -->
 						<div class="service-card">
-							<span class="service-number">06</span>
+							<span class="service-number">07</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1487,7 +1551,7 @@ const currentYear = new Date().getFullYear();
 									<path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" />
 								</svg>
 							</div>
-							<h3>Digital Transformation</h3>
+							<h3>IT Transformation</h3>
 							<p>
 								Operations and business-strategy reinvention. Organizational
 								alignment and education. Technology selection and roll-out —
@@ -1498,7 +1562,7 @@ const currentYear = new Date().getFullYear();
 
 						<!-- CI/CD & Automation — Lucide: git-branch -->
 						<div class="service-card">
-							<span class="service-number">07</span>
+							<span class="service-number">08</span>
 							<div class="service-icon-plate">
 								<svg
 									class="service-icon"
@@ -1528,15 +1592,81 @@ const currentYear = new Date().getFullYear();
 				</div>
 			</section>
 
+			<section id="proof">
+				<div class="container">
+					<span class="section-eyebrow">// 03 · proof</span>
+					<h2 class="section-title">FAM Central</h2>
+					<hr class="section-divider" />
+					<p class="proof-text">
+						A multi-sided marketplace for families, on web and mobile, live
+						at <a href="https://famcentral.com" rel="noopener" target="_blank">famcentral.com</a>.
+						By November 2026 it held 297,000 lines of application code and
+						184,000 lines of tests, most of it built with Slipstream, Brent's
+						multi-agent delivery process: several features are developed at
+						the same time, each in its own copy of the codebase, and each is
+						verified end to end on a deployed staging environment (Playwright
+						on web, Maestro on mobile) before release. Every batch of seven
+						features takes about twelve hours from request to verified on
+						staging; by hand, Brent estimates each one at eight weeks. The
+						fastest batch took under four hours.
+					</p>
+				</div>
+			</section>
+
 			<section id="clients">
 				<div class="container">
-					<span class="section-eyebrow">// 03 · clients</span>
+					<span class="section-eyebrow">// 04 · clients</span>
 					<h2 class="section-title">AxisCode Clients</h2>
 					<hr class="section-divider" />
 					<p class="clients-intro">
 						<strong>From whiteboard to production — for enterprises that take both seriously.</strong>
 					</p>
 					<div class="clients-grid">
+						<!-- The FAM Project — Lucide: house (neutral icon, no logo) -->
+						<div class="client-card">
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+								<path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+							</svg>
+							<h3>The FAM Project</h3>
+						</div>
+
+						<!-- Deva Mexico — Lucide: building-2 (neutral icon, no logo) -->
+						<div class="client-card">
+							<svg
+								class="client-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+								<path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+								<path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+								<path d="M10 6h4" />
+								<path d="M10 10h4" />
+								<path d="M10 14h4" />
+								<path d="M10 18h4" />
+							</svg>
+							<h3>Deva Mexico</h3>
+						</div>
+
 						<!-- Amex — Simple Icons brand mark -->
 						<div class="client-card">
 							<svg
@@ -1660,7 +1790,7 @@ const currentYear = new Date().getFullYear();
 			<section id="contact">
 				<div class="container">
 					<div class="contact-content">
-						<span class="section-eyebrow">// 04 · contact</span>
+						<span class="section-eyebrow">// 05 · contact</span>
 						<h2 class="section-title">Let's talk.</h2>
 						<hr class="section-divider" />
 						<p>
@@ -1725,6 +1855,28 @@ const currentYear = new Date().getFullYear();
 									rel="noopener"
 									target="_blank"
 								>linkedin.com/in/brentarias</a>
+							</div>
+							<div class="contact-item">
+								<svg
+									class="contact-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									focusable="false"
+								>
+									<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+									<path d="M9 18c-4.51 2-5-2-7-2" />
+								</svg>
+								<a
+									href="https://github.com/brentarias"
+									rel="noopener"
+									target="_blank"
+								>github.com/brentarias</a>
 							</div>
 						</div>
 					</div>

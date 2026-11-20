@@ -1,5 +1,39 @@
 # AxisCode — Proposed Copy (Revision 1)
 
+## Revision 2 (November 2026)
+
+Copy aligned with the LinkedIn profile revised 19 November 2026. The sections
+below are otherwise unchanged and still describe Revision 1 wording where they
+differ from this list.
+
+1. Hero paragraph: "25+ years" → "20+ years"; "shipped in a fraction of the usual time" → "built by AI agents, verified end to end, and shipped in a fraction of the usual time".
+2. Hero chips: "25+ years hands-on" → "20+ years hands-on"; "Specs · Tests · Review" → "Specs · Tests · Release gate".
+3. About: "writes and reviews code alongside his agents" → "directs the AI coding agents that write and test the code".
+4. Agentic Delivery card: new paragraph (adds OpenAI's Codex; drops "multiples of hand-coded pace" and "reviewed"; verified end to end on staging), ending with "On FAM Central, every batch of seven features took about twelve hours; by hand, Brent estimates each one at eight weeks."
+5. Terminal mock-up last line: "reviewed and committed by Brent" → "verified by tests · released by Brent".
+6. Data Engineering card: the closing sentence "so data platforms ship in weeks, not quarters" stays (plain speed claims are allowed; see the rules below); the opening sentence changed in 13.
+7. New service card "Agentic Engineering for Your Team", placed after Agentic Delivery; later cards renumbered 02–08. Third person: "Brent sets up spec-driven, agent-run delivery in your codebase… Then he trains your engineers to run it."
+8. New "Proof" section (FAM Central, built with Slipstream) between Services and Clients, with a nav link; eyebrows renumbered (clients 04, contact 05). Says "most of it built with Slipstream" and names the test tools ("Playwright on web, Maestro on mobile"); closes with "Every batch of seven features takes about twelve hours from request to verified on staging; by hand, Brent estimates each one at eight weeks. The fastest batch took under four hours." This paragraph must never say the whole product was built with Slipstream (the early code predates it), and must never state how many batches there were.
+9. Clients: "The FAM Project" and "Deva Mexico" added at the front, with neutral icons.
+10. Page `<title>` unchanged: "AxisCode — Agentic-accelerated cloud architecture & engineering". It deliberately differs from the Open Graph/Twitter title ("AxisCode — Agentic engineering for serious software"): one is the browser and search-result title, the other the headline shown when the link is shared.
+11. Contact: GitHub link (github.com/brentarias) added after LinkedIn.
+12. App Modernization card: "Refactoring monoliths for containers, PaaS, or microservices… cloud-native storage" → "Moving legacy applications onto containers and managed cloud services. Likewise database migration to managed cloud databases…" (shortened; the "splitting out separate services" clause is gone).
+13. Data Engineering card, first sentence: "EAI, ODS, and data-lake design and build-out." → "Data-lake and data-platform design and build-out, and integration between enterprise systems."
+14. Cloud Migration card: "platform selection (serverless, SaaS, PaaS, Kubernetes)" → "platform selection (serverless, managed services, Kubernetes, or SaaS)".
+15. Scaling & Performance card, first sentence: "Elastic computation design, load and performance testing, and maintainable coding practices that hold up under growth." → "Autoscaling design, load and performance testing, and architecture that holds up under growth."
+16. Terminal mock-up first line: `$ claude code "refactor the auth middleware…"` → `$ claude "refactor the auth middleware…"` (the command is `claude`; the panel label is unchanged).
+17. "Digital Transformation" card renamed "IT Transformation"; About: "Digital transformation that actually moves a P&L?" → "An IT transformation that actually moves a P&L?".
+
+**Rules (do not strip the speed language again):**
+
+- Faster delivery is the point of agentic engineering; plain speed claims are fine ("a fraction of the usual time", "weeks, not quarters", "agentic-accelerated").
+- The only numbers allowed: a batch of seven features takes about twelve hours; Brent *estimates* the same work at eight weeks by hand (always marked as his estimate); the fastest batch took under four hours.
+- No bare multipliers ("20x", "multiples of hand-coded pace") — the reader can do the division.
+- Body copy is third person ("Brent maps the technology…"), never "I", "my" or "me".
+- Terminology (items 12–17): do not present microservices as a default destination; avoid EAI, ODS, PaaS.
+
+---
+
 Target audience: CTOs, VPs of Engineering, Chief Architects, and founders who
 already know they need serious engineering help on cloud / distributed / data /
 platform problems and are evaluating *how fast* and *how credibly* it can be
@@ -7,9 +41,10 @@ delivered.
 
 Positioning thesis (the thing every section should reinforce):
 
-> Senior architect with 25+ years of hands-on engineering, now compounded by
-> agentic coding workflows. The result is enterprise-grade software shipped at
-> a multiple of the usual pace — without substituting judgment for autocomplete.
+> Senior architect with 20+ years of hands-on engineering, now compounded by
+> agentic coding workflows. The result is enterprise-grade software built by AI
+> coding agents, verified end to end, and shipped in a fraction of the usual
+> time — without substituting judgment for autocomplete.
 
 Two things we are deliberately threading:
 
